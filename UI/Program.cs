@@ -1,1 +1,8 @@
-﻿Console.WriteLine("Hello, World!");
+﻿namespace NGRadio;
+static class Program
+{
+    static void Main(string[] args)
+    {
+        
+    }
+}
