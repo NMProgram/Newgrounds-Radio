@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\UI\UI.csproj" />
+    <ProjectReference Include="..\..\Data\Data.csproj" />
   </ItemGroup>
 
 </Project>
