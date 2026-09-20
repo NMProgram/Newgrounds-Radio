@@ -9,7 +9,7 @@ class TestRender : IRenderable
     }
 }
 
-public class TestRenderState
+public class RenderStateTests
 {
     [Fact]
     public void Pop_SetsCurrentProperty_PopsFromStack()
