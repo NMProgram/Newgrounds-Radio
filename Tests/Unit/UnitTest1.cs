@@ -1,10 +1,30 @@
-﻿namespace Unit;
+﻿namespace Tests.Unit;
+using NGRadio.MenuSystem;
 
-public class UnitTest1
+class TestRender : IRenderable
+{
+    public void Render(int index)
+    {
+        Console.WriteLine(index);
+    }
+}
+
+public class TestRenderState
 {
     [Fact]
-    public void Test1()
+    public void Pop_SetsCurrentProperty_PopsFromStack()
     {
-
+        // Arrange
+        IRenderable render = new TestRender();
+        IRenderable render2 = new TestRender();
+        RenderState state = new RenderState(render);
+        state.Save(render2);
+        // Act
+        bool equalToRender = render == state.Current;
+        var newState = state.Pop();
+        // Assert
+        Assert.True(equalToRender, "State was not initialized correctly.");
+        Assert.Equal(render2, newState.Current);
+        Assert.Throws<InvalidOperationException>(state.Pop);
     }
 }
