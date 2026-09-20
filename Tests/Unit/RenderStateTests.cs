@@ -1,16 +1,16 @@
 ﻿namespace Tests.Unit;
 using NGRadio.MenuSystem;
 
-class TestRender : IRenderable
-{
-    public void Render(int index)
-    {
-        Console.WriteLine(index);
-    }
-}
-
 public class RenderStateTests
 {
+    class TestRender : IRenderable
+    {
+        public void Render(int index)
+        {
+            Console.WriteLine(index);
+        }
+    }
+
     [Fact]
     public void Pop_SetsCurrentProperty_PopsFromStack()
     {
