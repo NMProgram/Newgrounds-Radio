@@ -1,4 +1,5 @@
 ﻿namespace Tests.Unit;
+
 using NGRadio.MenuSystem;
 
 public class RenderStateTests
