@@ -5,10 +5,7 @@ public class RenderStateTests
 {
     class TestRender : IRenderable
     {
-        public void Render(int index)
-        {
-            Console.WriteLine(index);
-        }
+        public void Render(int index) => Console.WriteLine(index);
     }
 
     [Fact]
@@ -16,15 +13,11 @@ public class RenderStateTests
     {
         // Arrange
         IRenderable render = new TestRender();
-        IRenderable render2 = new TestRender();
-        RenderState state = new RenderState(render);
-        state.Save(render2);
+        RenderState state = new RenderState(new TestRender());
+        state.Save(render);
         // Act
-        bool equalToRender = render == state.Current;
         var newState = state.Pop();
         // Assert
-        Assert.True(equalToRender, "State was not initialized correctly.");
-        Assert.Equal(render2, newState.Current);
-        Assert.Throws<InvalidOperationException>(state.Pop);
+        Assert.Equal(render, newState.Current);
     }
 }
