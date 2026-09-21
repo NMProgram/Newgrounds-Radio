@@ -27,6 +27,13 @@ public record RenderState
     /// <summary>
     /// Pops the last saved <see cref="IRenderable"/> instance from the state record.
     /// </summary>
-    /// <returns>The last saved render, if any have been saved, else the current is set to null.</returns>
-    public RenderState Pop() => this with { Current = previous.Count > 0 ? previous.Pop() : null };
+    /// <returns>
+    /// A new <see cref="RenderState"/> instance with the popped value set to <see cref="Current"/>, 
+    /// if any render was saved.
+    /// </returns>
+    public RenderState Pop()
+    {
+        previous.TryPop(out IRenderable? render);
+        return this with { Current = render };
+    }
 }
