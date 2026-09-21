@@ -18,12 +18,6 @@ public class StartMenu : Menu
     {
     }
 
-    public override void Render(int index) => Array.ForEach(GetPrefixedText(index), Console.WriteLine);
-
-    private string[] GetPrefixedText(int index) => Buttons
-    .Select(GetPrefixedButton(index))
-    .ToArray();
-
-    private static Func<IMenuButton, int, string> GetPrefixedButton(int index) 
-        => (btn, i) => $"{(index == i ? '>' : ' ')} {btn.Text}";
+    public override void Render(int index) 
+        => Array.ForEach(MenuUtils.GetButtonDisplay(Buttons, index), Console.WriteLine);
 }
