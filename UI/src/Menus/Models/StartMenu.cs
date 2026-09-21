@@ -1,5 +1,8 @@
 namespace NGRadio.MenuSystem;
 
+/// <summary>
+/// Represents the starting Menu for the Newgrounds Radio system.
+/// </summary>
 public class StartMenu : Menu
 {
     private static readonly IMenuButton[] buttons = [
@@ -8,6 +11,9 @@ public class StartMenu : Menu
         new MenuButton("Option 3", state => state),
     ];
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="StartMenu"/> class.
+    /// </summary>
     public StartMenu() : base(buttons)
     {
     }
@@ -18,6 +24,6 @@ public class StartMenu : Menu
     .Select(GetPrefixedButton(index))
     .ToArray();
 
-    private Func<IMenuButton, int, string> GetPrefixedButton(int index) 
+    private static Func<IMenuButton, int, string> GetPrefixedButton(int index) 
         => (btn, i) => $"{(index == i ? '>' : ' ')} {btn.Text}";
 }
