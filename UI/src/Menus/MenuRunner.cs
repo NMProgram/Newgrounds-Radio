@@ -6,10 +6,10 @@ public static class MenuRunner
     {
         MenuPos pos = new MenuPos(menu.ButtonCount);
         RenderState state = new RenderState(menu);
-        do
+        while (state.Current is not null)
         {
-            pos = pos with { Max = ((IButtonCollection)state.Current!).ButtonCount };
-            state.Current?.Render(pos.Value);
+            state.Current.Render(pos.Value);
+            pos = UpdatePosLimit(pos, state);
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
@@ -18,7 +18,6 @@ public static class MenuRunner
                 default: MovePosition(pos, keyInfo.Key); break;
             }
         }
-        while(state.Current is not null);
     }
 
     private static int MovePosition(MenuPos pos, ConsoleKey key) => key switch
@@ -29,4 +28,7 @@ public static class MenuRunner
         ConsoleKey.A or ConsoleKey.LeftArrow => pos.MoveLeft(),
         _ => pos.Value
     };
+
+    private static MenuPos UpdatePosLimit(MenuPos pos, RenderState state) 
+        => pos with { Max = ((IButtonCollection)state.Current!).ButtonCount };
 }
