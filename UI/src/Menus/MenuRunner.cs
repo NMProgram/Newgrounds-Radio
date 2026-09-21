@@ -12,10 +12,12 @@ public static class MenuRunner
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
-                case ConsoleKey.Enter: state = menu.GetButton(pos.Value).OnPress(state); break;
+                case ConsoleKey.Enter: state = PressButtonAt(pos, state); break;
                 case ConsoleKey.Backspace: state = state.Pop(); break;
-                default: pos = UpdatePosLimit(MovePosition(pos, keyInfo.Key), state); break;
+                default: pos = MovePosition(pos, keyInfo.Key); break;
             }
+
+            pos = UpdatePosLimit(pos, state);
         }
     }
 
@@ -30,4 +32,9 @@ public static class MenuRunner
 
     private static MenuPos UpdatePosLimit(MenuPos pos, RenderState state) 
         => pos with { Max = ((IButtonCollection)state.Current!).ButtonCount };
+    
+    private static RenderState PressButtonAt(MenuPos pos, RenderState state) => 
+    ((IButtonCollection)state.Current!)
+    .GetButton(pos.Value)
+    .OnPress(state);
 }
