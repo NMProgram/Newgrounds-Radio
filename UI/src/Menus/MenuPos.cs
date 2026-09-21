@@ -1,4 +1,4 @@
-namespace NGRadio.Models;
+namespace NGRadio.Menus;
 
 using static Logic.IntUtils;
 
