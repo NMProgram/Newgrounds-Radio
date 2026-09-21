@@ -9,17 +9,26 @@ public static class MenuRunner
         while (state.Current is not null)
         {
             state.Current.Render(pos.Value);
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.Enter: state = PressButtonAt(pos, state); break;
-                case ConsoleKey.Backspace: state = state.Pop(); break;
-                default: pos = MovePosition(pos, keyInfo.Key); break;
-            }
-
+            (pos, state) = ProcessInput(pos, state);
             pos = UpdatePosLimit(pos, state);
         }
     }
+
+    private static (MenuPos, RenderState) ProcessInput(MenuPos pos, RenderState state)
+    {
+        ConsoleKeyInfo keyInfo = Console.ReadKey();
+        return keyInfo.Key switch
+        {
+            ConsoleKey.Enter => (pos, PressButtonAt(pos, state)),
+            ConsoleKey.Backspace => (pos, state.Pop()),
+            _ => (MovePosition(pos, keyInfo.Key), state)
+        };
+    }
+
+    private static RenderState PressButtonAt(MenuPos pos, RenderState state) => 
+    ((IButtonCollection)state.Current!)
+    .GetButton(pos.Value)
+    .OnPress(state);
 
     private static MenuPos MovePosition(MenuPos pos, ConsoleKey key) => key switch
     {
@@ -32,9 +41,4 @@ public static class MenuRunner
 
     private static MenuPos UpdatePosLimit(MenuPos pos, RenderState state) 
         => pos with { Max = ((IButtonCollection)state.Current!).ButtonCount };
-    
-    private static RenderState PressButtonAt(MenuPos pos, RenderState state) => 
-    ((IButtonCollection)state.Current!)
-    .GetButton(pos.Value)
-    .OnPress(state);
 }
