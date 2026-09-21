@@ -13,10 +13,9 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveUp();
+        MenuPos newPos = pos.MoveUp();
         // Assert
-        Assert.Equal(index - 1, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(index - 1, newPos.Value);
     }
 
     [Theory]
@@ -28,10 +27,9 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveUp();
+        MenuPos newPos = pos.MoveUp();
         // Assert
-        Assert.Equal(max - 1, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(max - 1, newPos.Value);
     }
 
     [Theory]
@@ -43,10 +41,9 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveDown();
+        MenuPos newPos = pos.MoveDown();
         // Assert
-        Assert.Equal(index + 1, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(index + 1, newPos.Value);
     }
 
     [Theory]
@@ -57,10 +54,9 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveDown();
+        MenuPos newPos = pos.MoveDown();
         // Assert
-        Assert.Equal(0, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(0, newPos.Value);
     }
 
     [Theory]
@@ -72,10 +68,9 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveRight();
+        MenuPos newPos = pos.MoveRight();
         // Assert
-        Assert.Equal(exp, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(exp, newPos.Value);
     }
 
     [Theory]
@@ -87,10 +82,9 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveRight();
+        MenuPos newPos = pos.MoveRight();
         // Assert
-        Assert.Equal(0, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(0, newPos.Value);
     }
 
     [Theory]
@@ -102,10 +96,9 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveLeft();
+        MenuPos newPos = pos.MoveLeft();
         // Assert
-        Assert.Equal(exp, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(exp, newPos.Value);
     }
 
     [Theory]
@@ -116,9 +109,8 @@ public class MenuPosTests
         // Arrange
         MenuPos pos = new(index, max);
         // Act
-        int newPos = pos.MoveLeft();
+        MenuPos newPos = pos.MoveLeft();
         // Assert
-        Assert.Equal(max - 1, pos.Value);
-        Assert.Equal(pos.Value, newPos);
+        Assert.Equal(max - 1, newPos.Value);
     }
 }
