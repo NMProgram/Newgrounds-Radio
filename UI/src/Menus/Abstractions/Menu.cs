@@ -3,7 +3,7 @@ namespace NGRadio.MenuSystem;
 /// <summary>
 /// Represents a navigation menu with a collection of pushable buttons.
 /// </summary>
-public abstract class Menu : IRenderable, IButtonCollection
+public abstract class Menu : IMenu
 {
     /// <summary>
     /// Creates a new instance of the <see cref="Menu"/> abstract class.
