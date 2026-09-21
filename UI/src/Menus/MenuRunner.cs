@@ -1,7 +1,15 @@
 namespace NGRadio.MenuSystem;
 
+/// <summary>
+/// Provides a way to run an <see cref="IMenu"/> instance.
+/// </summary>
 public static class MenuRunner
 {
+    /// <summary>
+    /// Starts the <see cref="MenuRunner"/> 
+    /// with the provided <see cref="IMenu"/> instance.
+    /// </summary>
+    /// <param name="menu">The menu to start running.</param>
     public static void Start(IMenu menu)
     {
         MenuPos pos = new MenuPos(menu.ButtonCount);
