@@ -16,10 +16,10 @@ public static class MenuRunner
         RenderState state = new RenderState(menu);
         while (state.Current is not null)
         {
+            pos = UpdatePosLimit(pos, state);
             Console.Clear();
             state.Current.Render(pos.Value);
             (pos, state) = ProcessInput(pos, state);
-            pos = UpdatePosLimit(pos, state);
         }
     }
 
