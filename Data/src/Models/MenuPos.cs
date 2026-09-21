@@ -1,6 +1,6 @@
-namespace NGRadio.Logic;
+namespace NGRadio.Models;
 
-using static IntUtils;
+using static Logic.IntUtils;
 
 public struct MenuPos
 {
