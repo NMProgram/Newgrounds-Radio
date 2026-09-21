@@ -16,7 +16,7 @@ public record RenderState
     /// <summary>
     /// Gets the currently active <see cref="IRenderable"/> object.
     /// </summary>
-    public IRenderable Current { get; private init; }
+    public IRenderable? Current { get; private init; }
 
     /// <summary>
     /// Saves a new <see cref="IRenderable"/> instance to the state record.
@@ -27,7 +27,6 @@ public record RenderState
     /// <summary>
     /// Pops the last saved <see cref="IRenderable"/> instance from the state record.
     /// </summary>
-    /// <returns>The last saved render, if any have been saved.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when no previous render is found.</exception>
-    public RenderState Pop() => this with { Current = previous.Pop() };
+    /// <returns>The last saved render, if any have been saved, else the current is set to null.</returns>
+    public RenderState Pop() => this with { Current = previous.Count > 0 ? previous.Pop() : null };
 }
