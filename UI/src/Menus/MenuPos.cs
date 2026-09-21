@@ -30,31 +30,31 @@ public struct MenuPos
     /// <summary>
     /// Gets the current index of the position.
     /// </summary>
-    public int Value { get; private set; }
+    public int Value { get; private init; }
 
     /// <summary>
     /// Moves the menu position upwards.
     /// </summary>
-    /// <returns>The newly set index.</returns>
-    public int MoveUp() => Value = WrapToMax(Value - 1, Max, v => v);
+    /// <returns>A new <see cref="MenuPos"/> instance with the updated index.</returns>
+    public MenuPos MoveUp() => this with { Value = WrapToMax(Value - 1, Max, v => v) };
 
     /// <summary>
     /// Moves the menu position downwards.
     /// </summary>
     /// <returns><inheritdoc cref="MoveUp"/></returns>
-    public int MoveDown() => Value = WrapToZero(Value + 1, Max, v => v);
+    public MenuPos MoveDown() => this with { Value = WrapToZero(Value + 1, Max, v => v) };
 
     /// <summary>
     /// Moves the menu position to the left, using the set PageCount and flooring.
     /// </summary>
     /// <returns><inheritdoc cref="MoveUp"/></returns>
-    public int MoveLeft() => Value = WrapToMax(Value - PageCount, Max, FloorPageCount);
+    public MenuPos MoveLeft() => this with { Value = WrapToMax(Value - PageCount, Max, FloorPageCount) };
 
     /// <summary>
     /// Moves the menu position to the right, using the set PageCount and flooring.
     /// </summary>
     /// <returns><inheritdoc cref="MoveUp"/></returns>
-    public int MoveRight() => Value = WrapToZero(Value + PageCount, Max, FloorPageCount);
+    public MenuPos MoveRight() => this with { Value = WrapToZero(Value + PageCount, Max, FloorPageCount) };
 
     private static int FloorPageCount(int value) => Floor(value, PageCount);
 }
