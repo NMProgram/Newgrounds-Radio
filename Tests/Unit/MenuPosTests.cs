@@ -1,6 +1,6 @@
 namespace Tests.Unit;
 
-using NGRadio.Logic;
+using NGRadio.Menus;
 
 public class MenuPosTests
 {
