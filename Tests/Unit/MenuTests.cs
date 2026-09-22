@@ -10,11 +10,16 @@ public class MenuTests
 
         public IPoppable OnPress(IPoppable state) => state;
     }
-    class TestMenu : Menu
+    class TestMenu : IMenu
     {
-        public TestMenu(params TestButton[] buttons) : base(buttons) { }
+        private readonly IButton[] buttons;
+        public TestMenu(params TestButton[] buttons) => this.buttons = buttons;
 
-        public override void Render() => Console.WriteLine();
+        public int ButtonCount => buttons.Length;
+
+        public IButton GetButton(Index index) => buttons[index];
+
+        public void Render() => Console.WriteLine();
     }
 
     [Theory]
@@ -41,7 +46,7 @@ public class MenuTests
         TestButton exp = new();
         var menu = new TestMenu([exp, ..Enumerable.Repeat(new TestButton(), count).ToArray()]);
         // Act
-        IButton act = menu[0];
+        IButton act = menu.GetButton(0);
         // Assert
         Assert.Equal(exp, act);
     }
