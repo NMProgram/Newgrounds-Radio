@@ -6,6 +6,13 @@ namespace NGRadio.MenuSystem;
 public interface ICursor
 {
     /// <summary>
+    /// Delegates a provided <see cref="ICursor"/> instance to a new position.
+    /// </summary>
+    /// <param name="cursor">The cursor object to move.</param>
+    /// <returns>The delegated <see cref="ICursor"/> instance.</returns>
+    delegate ICursor Mover(ICursor cursor);
+
+    /// <summary>
     /// Gets the current index of the <see cref="ICursor"/> instance.
     /// </summary>
     int Index { get; }
