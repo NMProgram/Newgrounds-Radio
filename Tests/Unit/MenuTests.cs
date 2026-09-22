@@ -10,7 +10,7 @@ public class MenuTests
 
         public IPoppable OnPress(IPoppable state) => state;
     }
-    class TestMenu : IMenu2
+    class TestMenu : IMenu
     {
         private readonly ICursor cursor;
         private readonly IButton[] buttons;
@@ -24,7 +24,7 @@ public class MenuTests
 
         public IContainer Selected => buttons[cursor.Index];
 
-        public IMenu2 MoveCursor(ICursor.Mover mover) => new TestMenu(buttons, mover(cursor));
+        public IMenu MoveCursor(ICursor.Mover mover) => new TestMenu(buttons, mover(cursor));
 
         public IPoppable? Pop() => null;
 

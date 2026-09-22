@@ -10,17 +10,17 @@ public static class MenuRunner
     /// with the provided <see cref="IMenu"/> instance.
     /// </summary>
     /// <param name="menu">The menu to start running.</param>
-    public static void Start(IMenu2? menu)
+    public static void Start(IMenu? menu)
     {
         while (menu is not null)
         {
             Console.Clear();
             menu.Render();
-            menu = ProcessInput(menu) as IMenu2;
+            menu = ProcessInput(menu) as IMenu;
         }
     }
 
-    private static IPoppable? ProcessInput(IMenu2 menu)
+    private static IPoppable? ProcessInput(IMenu menu)
     {
         ConsoleKeyInfo keyInfo = Console.ReadKey();
         return keyInfo.Key switch
@@ -31,7 +31,7 @@ public static class MenuRunner
         };
     }
 
-    private static IMenu2 MovePosition(IMenu2 m, ConsoleKey key) => key switch
+    private static IMenu MovePosition(IMenu m, ConsoleKey key) => key switch
     {
         ConsoleKey.W or ConsoleKey.UpArrow => m.MoveCursor(c => c.Up),
         ConsoleKey.S or ConsoleKey.DownArrow => m.MoveCursor(c => c.Down),
