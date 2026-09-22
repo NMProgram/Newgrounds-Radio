@@ -3,8 +3,9 @@ namespace NGRadio.MenuSystem;
 /// <summary>
 /// Represents the starting Menu for the Newgrounds Radio system.
 /// </summary>
-public class StartMenu : IMenu
+public class StartMenu : IMenu2
 {
+    private readonly ICursor cursor = new MenuCursor(buttons.Length);
     private static readonly IButton[] buttons = [
         new Button("Option 1", state => state.Pop()),
         new Button("Option 2", state => { Console.WriteLine("Hello!"); Console.ReadLine(); return state; }),
@@ -14,13 +15,15 @@ public class StartMenu : IMenu
     /// <summary>
     /// Creates a new instance of the <see cref="StartMenu"/> class.
     /// </summary>
-    public StartMenu()
-    {
-    }
+    public StartMenu() { }
 
-    public int ButtonCount => buttons.Length;
+    private StartMenu(ICursor cursor) => this.cursor = cursor;
 
-    public IButton GetButton(Index index) => buttons[index];
+    public IContainer Selected => buttons[cursor.Index];
 
-    public void Render() => Array.ForEach(MenuUtils.GetButtonDisplay(buttons, 0), Console.WriteLine);
+    public IMenu2 MoveCursor(ICursor.Mover mover) => new StartMenu(mover(cursor));
+
+    public IPoppable? Pop() => null;
+
+    public void Render() => Array.ForEach(MenuUtils.GetButtonDisplay(buttons, cursor.Index), Console.WriteLine);
 }
