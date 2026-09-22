@@ -6,6 +6,11 @@ namespace NGRadio.MenuSystem;
 public interface ICursor
 {
     /// <summary>
+    /// Gets the current index of the <see cref="ICursor"/> instance.
+    /// </summary>
+    int Index { get; }
+
+    /// <summary>
     /// Gets a new <see cref="ICursor"/> instance moved upwards.
     /// </summary>
     ICursor Up { get; }
