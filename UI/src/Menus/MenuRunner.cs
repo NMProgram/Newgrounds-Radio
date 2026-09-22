@@ -10,46 +10,33 @@ public static class MenuRunner
     /// with the provided <see cref="IMenu"/> instance.
     /// </summary>
     /// <param name="menu">The menu to start running.</param>
-    public static void Start(IMenu menu)
+    public static void Start(IMenu2? menu)
     {
-        MenuPos pos = new MenuPos(menu.ButtonCount);
-        RenderState? state = new RenderState(menu);
-        while (state?.Current is not null)
+        while (menu is not null)
         {
-            pos = UpdatePosLimit(pos, state);
             Console.Clear();
-            state.Current.Render();
-            var result = ProcessInput(pos, state);
-            pos = result.Item1;
-            state = result.Item2 as RenderState;
+            menu.Render();
+            menu = ProcessInput(menu) as IMenu2;
         }
     }
 
-    private static (MenuPos, IPoppable?) ProcessInput(MenuPos pos, RenderState state)
+    private static IPoppable? ProcessInput(IMenu2 menu)
     {
         ConsoleKeyInfo keyInfo = Console.ReadKey();
         return keyInfo.Key switch
         {
-            ConsoleKey.Enter => (pos, PressButtonAt(pos, state)),
-            ConsoleKey.Backspace => (pos, state.Pop()),
-            _ => (MovePosition(pos, keyInfo.Key), state)
+            ConsoleKey.Enter when menu.Selected is IPressable btn => btn.OnPress(menu),
+            ConsoleKey.Backspace => menu.Pop(),
+            _ => MovePosition(menu, keyInfo.Key)
         };
     }
 
-    private static IPoppable? PressButtonAt(MenuPos pos, RenderState state) => 
-    ((IButtonCollection)state.Current!)
-    .GetButton(pos.Value)
-    .OnPress(state);
-
-    private static MenuPos MovePosition(MenuPos pos, ConsoleKey key) => key switch
+    private static IMenu2 MovePosition(IMenu2 m, ConsoleKey key) => key switch
     {
-        ConsoleKey.W or ConsoleKey.UpArrow => pos.MoveUp(),
-        ConsoleKey.S or ConsoleKey.DownArrow => pos.MoveDown(),
-        ConsoleKey.D or ConsoleKey.RightArrow => pos.MoveRight(),
-        ConsoleKey.A or ConsoleKey.LeftArrow => pos.MoveLeft(),
-        _ => pos
+        ConsoleKey.W or ConsoleKey.UpArrow => m.MoveCursor(c => c.Up),
+        ConsoleKey.S or ConsoleKey.DownArrow => m.MoveCursor(c => c.Down),
+        ConsoleKey.D or ConsoleKey.RightArrow => m.MoveCursor(c => c.Right),
+        ConsoleKey.A or ConsoleKey.LeftArrow => m.MoveCursor(c => c.Left),
+        _ => m
     };
-
-    private static MenuPos UpdatePosLimit(MenuPos pos, RenderState state) 
-        => pos with { Max = ((IButtonCollection)state.Current!).ButtonCount };
 }
