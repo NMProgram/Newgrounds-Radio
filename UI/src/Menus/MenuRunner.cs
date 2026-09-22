@@ -18,7 +18,7 @@ public static class MenuRunner
         {
             pos = UpdatePosLimit(pos, state);
             Console.Clear();
-            state.Current.Render(pos.Value);
+            state.Current.Render();
             (pos, state) = ProcessInput(pos, state);
         }
     }

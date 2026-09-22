@@ -6,7 +6,7 @@ public class RenderStateTests
 {
     class TestRender : IRenderable
     {
-        public void Render(int index) => Console.WriteLine(index);
+        public void Render() => Console.WriteLine();
     }
 
     [Fact]

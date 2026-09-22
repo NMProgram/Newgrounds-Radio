@@ -14,7 +14,7 @@ public class MenuTests
     {
         public TestMenu(params TestButton[] buttons) : base(buttons) { }
 
-        public override void Render(int index) => Console.WriteLine(index);
+        public override void Render() => Console.WriteLine();
     }
 
     [Theory]

@@ -18,6 +18,6 @@ public class StartMenu : Menu
     {
     }
 
-    public override void Render(int index) 
-        => Array.ForEach(MenuUtils.GetButtonDisplay(Buttons, index), Console.WriteLine);
+    public override void Render() 
+        => Array.ForEach(MenuUtils.GetButtonDisplay(Buttons, 0), Console.WriteLine);
 }

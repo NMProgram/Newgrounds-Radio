@@ -19,8 +19,7 @@ public abstract class Menu : IMenu
     /// <summary>
     /// Renders the current <see cref="Menu"/> instance.
     /// </summary>
-    /// <param name="index">The index of the button to select in the render.</param>
-    public abstract void Render(int index);
+    public abstract void Render();
 
     /// <inheritdoc/>
     public IMenuButton GetButton(Index index) => Buttons[index];
