@@ -19,6 +19,4 @@ public readonly struct MenuCursor : ICursor
     public ICursor Down => new MenuCursor(WrapToZero(Index + 1, max, v => v), max);
 
     public ICursor Right => new MenuCursor(WrapToZero(Index + PageSize, max, v => Floor(v, PageSize)), max);
-
-    public static explicit operator int(MenuCursor cursor) => cursor.Index;
 }
