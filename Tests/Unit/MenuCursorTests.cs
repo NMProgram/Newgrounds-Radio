@@ -13,9 +13,9 @@ public class MenuCursorTests
         // Arrange
         MenuCursor curs = new MenuCursor(index, max);
         // Act
-        MenuCursor newCursor = (MenuCursor)curs.Up;
+        ICursor newCursor = curs.Up;
         // Assert
-        Assert.Equal(index - 1, (int)newCursor);
+        Assert.Equal(index - 1, newCursor.Index);
     }
 
     [Theory]
@@ -27,9 +27,9 @@ public class MenuCursorTests
         // Arrange
         MenuCursor cursor = new(index, max);
         // Act
-        MenuCursor newCursor = (MenuCursor)cursor.Up;
+        ICursor newCursor = cursor.Up;
         // Assert
-        Assert.Equal(max - 1, (int)newCursor);
+        Assert.Equal(max - 1, newCursor.Index);
     }
 
     [Theory]
@@ -41,9 +41,9 @@ public class MenuCursorTests
         // Arrange
         MenuCursor cursor = new(index, max);
         // Act
-        MenuCursor newCursor = (MenuCursor)cursor.Down;
+        ICursor newCursor = cursor.Down;
         // Assert
-        Assert.Equal(index + 1, (int)newCursor);
+        Assert.Equal(index + 1, newCursor.Index);
     }
 
     [Theory]
@@ -54,9 +54,9 @@ public class MenuCursorTests
         // Arrange
         MenuCursor cursor = new(index, max);
         // Act
-        MenuCursor newPos = (MenuCursor)cursor.Down;
+        ICursor newCursor = cursor.Down;
         // Assert
-        Assert.Equal(0, (int)newPos);
+        Assert.Equal(0, newCursor.Index);
     }
 
     [Theory]
@@ -68,9 +68,9 @@ public class MenuCursorTests
         // Arrange
         MenuCursor cursor = new(index, max);
         // Act
-        MenuCursor newCursor = (MenuCursor)cursor.Right;
+        ICursor newCursor = cursor.Right;
         // Assert
-        Assert.Equal(exp, (int)newCursor);
+        Assert.Equal(exp, newCursor.Index);
     }
 
     [Theory]
@@ -82,9 +82,9 @@ public class MenuCursorTests
         // Arrange
         MenuCursor cursor = new(index, max);
         // Act
-        MenuCursor newCursor = (MenuCursor)cursor.Right;
+        ICursor newCursor = cursor.Right;
         // Assert
-        Assert.Equal(0, (int)newCursor);
+        Assert.Equal(0, newCursor.Index);
     }
 
     [Theory]
@@ -96,9 +96,9 @@ public class MenuCursorTests
         // Arrange
         MenuCursor cursor = new(index, max);
         // Act
-        MenuCursor newPos = (MenuCursor)cursor.Left;
+        ICursor newCursor = cursor.Left;
         // Assert
-        Assert.Equal(exp, (int)newPos);
+        Assert.Equal(exp, newCursor.Index);
     }
 
     [Theory]
@@ -109,8 +109,8 @@ public class MenuCursorTests
         // Arrange
         MenuCursor cursor = new(index, max);
         // Act
-        MenuCursor newCursor = (MenuCursor)cursor.Left;
+        ICursor newCursor = cursor.Left;
         // Assert
-        Assert.Equal(max - 1, (int)newCursor);
+        Assert.Equal(max - 1, newCursor.Index);
     }
 }
