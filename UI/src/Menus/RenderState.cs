@@ -3,7 +3,7 @@ namespace NGRadio.MenuSystem;
 /// <summary>
 /// Holds the current history of <see cref="IRenderable"/> instances.
 /// </summary>
-public record RenderState
+public record RenderState : IPoppable
 {
     private readonly Stack<IRenderable> previous = [];
 
@@ -28,10 +28,10 @@ public record RenderState
     /// Pops the last saved <see cref="IRenderable"/> instance from the state record.
     /// </summary>
     /// <returns>
-    /// A new <see cref="RenderState"/> instance with the popped value set to <see cref="Current"/>, 
+    /// A new <see cref="IPoppable"/> instance with the popped value set to <see cref="Current"/>, 
     /// if any render was saved.
     /// </returns>
-    public RenderState Pop()
+    public IPoppable Pop()
     {
         previous.TryPop(out IRenderable? render);
         return this with { Current = render };

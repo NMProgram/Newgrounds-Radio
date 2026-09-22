@@ -13,17 +13,19 @@ public static class MenuRunner
     public static void Start(IMenu menu)
     {
         MenuPos pos = new MenuPos(menu.ButtonCount);
-        RenderState state = new RenderState(menu);
-        while (state.Current is not null)
+        RenderState? state = new RenderState(menu);
+        while (state?.Current is not null)
         {
             pos = UpdatePosLimit(pos, state);
             Console.Clear();
             state.Current.Render();
-            (pos, state) = ProcessInput(pos, state);
+            var result = ProcessInput(pos, state);
+            pos = result.Item1;
+            state = result.Item2 as RenderState;
         }
     }
 
-    private static (MenuPos, RenderState) ProcessInput(MenuPos pos, RenderState state)
+    private static (MenuPos, IPoppable?) ProcessInput(MenuPos pos, RenderState state)
     {
         ConsoleKeyInfo keyInfo = Console.ReadKey();
         return keyInfo.Key switch
@@ -34,7 +36,7 @@ public static class MenuRunner
         };
     }
 
-    private static RenderState PressButtonAt(MenuPos pos, RenderState state) => 
+    private static IPoppable? PressButtonAt(MenuPos pos, RenderState state) => 
     ((IButtonCollection)state.Current!)
     .GetButton(pos.Value)
     .OnPress(state);
