@@ -1,7 +1,7 @@
 namespace NGRadio.MenuSystem;
 
 /// <summary>
-/// Represents a collection of <see cref="IMenuButton"/> instances.
+/// Represents a collection of <see cref="IButton"/> instances.
 /// </summary>
 public interface IButtonCollection
 {
@@ -16,5 +16,5 @@ public interface IButtonCollection
     /// <param name="index">The index to use to get a button from the collection.</param>
     /// <returns>The found button from the collection.</returns>
     /// <exception cref="IndexOutOfRangeException">Thrown if the index falls outside of the collection's range.</exception>
-    IMenuButton GetButton(Index index);
+    IButton GetButton(Index index);
 }

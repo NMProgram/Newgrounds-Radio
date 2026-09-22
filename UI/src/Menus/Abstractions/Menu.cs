@@ -9,12 +9,12 @@ public abstract class Menu : IMenu
     /// Creates a new instance of the <see cref="Menu"/> abstract class.
     /// </summary>
     /// <param name="buttons">The buttons to use for this menu.</param>
-    protected Menu(IMenuButton[] buttons) => this.Buttons = buttons;
+    protected Menu(IButton[] buttons) => this.Buttons = buttons;
 
     /// <summary>
     /// Gets the buttons of this <see cref="Menu"/> instance.
     /// </summary>
-    protected IMenuButton[] Buttons { get; }
+    protected IButton[] Buttons { get; }
 
     /// <summary>
     /// Renders the current <see cref="Menu"/> instance.
@@ -22,10 +22,10 @@ public abstract class Menu : IMenu
     public abstract void Render();
 
     /// <inheritdoc/>
-    public IMenuButton GetButton(Index index) => Buttons[index];
+    public IButton GetButton(Index index) => Buttons[index];
 
     /// <inheritdoc cref="GetButton"/>
-    public IMenuButton this[Index index] => GetButton(index);
+    public IButton this[Index index] => GetButton(index);
 
     /// <summary>
     /// Gets the total amount of buttons in this menu.

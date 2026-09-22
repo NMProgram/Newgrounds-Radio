@@ -5,7 +5,7 @@ namespace NGRadio.MenuSystem;
 /// </summary>
 public class StartMenu : Menu
 {
-    private static readonly IMenuButton[] buttons = [
+    private static readonly IButton[] buttons = [
         new MenuButton("Option 1", state => state.Pop()),
         new MenuButton("Option 2", state => { Console.WriteLine("Hello!"); Console.ReadLine(); return state; }),
         new MenuButton("Option 3", state => state.Pop()),

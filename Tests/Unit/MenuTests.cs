@@ -4,7 +4,7 @@ using NGRadio.MenuSystem;
 
 public class MenuTests
 {
-    class TestButton : IMenuButton
+    class TestButton : IButton
     {
         public string Text => "Testing";
 
@@ -41,7 +41,7 @@ public class MenuTests
         TestButton exp = new();
         var menu = new TestMenu([exp, ..Enumerable.Repeat(new TestButton(), count).ToArray()]);
         // Act
-        IMenuButton act = menu[0];
+        IButton act = menu[0];
         // Assert
         Assert.Equal(exp, act);
     }
