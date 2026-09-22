@@ -2,7 +2,7 @@ namespace Tests.Unit;
 
 using NGRadio.MenuSystem;
 
-public class MenuPosTests
+public class MenuCursorTests
 {
     [Theory]
     [InlineData(10, 11)]
