@@ -17,7 +17,7 @@ public class RenderStateTests
         RenderState state = new RenderState(new TestRender());
         state.Save(render);
         // Act
-        var newState = state.Pop();
+        var newState = (RenderState)state.Pop();
         // Assert
         Assert.Equal(render, newState.Current);
     }

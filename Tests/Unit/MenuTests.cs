@@ -8,7 +8,7 @@ public class MenuTests
     {
         public string Text => "Testing";
 
-        public RenderState OnPress(RenderState state) => state;
+        public IPoppable OnPress(IPoppable state) => state;
     }
     class TestMenu : Menu
     {
