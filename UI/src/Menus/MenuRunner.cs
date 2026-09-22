@@ -16,27 +16,19 @@ public static class MenuRunner
         {
             Console.Clear();
             menu.Render();
-            menu = ProcessInput(menu) as IMenu;
+            menu = HandleKeyPress(menu) as IMenu;
         }
     }
 
-    private static IPoppable? ProcessInput(IMenu menu)
+    private static IPoppable? HandleKeyPress(IMenu menu) => Console.ReadKey().Key switch
     {
-        ConsoleKeyInfo keyInfo = Console.ReadKey();
-        return keyInfo.Key switch
-        {
-            ConsoleKey.Enter when menu.Selected is IPressable btn => btn.OnPress(menu),
-            ConsoleKey.Backspace => menu.Pop(),
-            _ => MovePosition(menu, keyInfo.Key)
-        };
-    }
+        ConsoleKey.Enter when menu.Selected is IPressable btn => btn.OnPress(menu),
+        ConsoleKey.Backspace => menu.Pop(),
 
-    private static IMenu MovePosition(IMenu m, ConsoleKey key) => key switch
-    {
-        ConsoleKey.W or ConsoleKey.UpArrow => m.MoveCursor(c => c.Up),
-        ConsoleKey.S or ConsoleKey.DownArrow => m.MoveCursor(c => c.Down),
-        ConsoleKey.D or ConsoleKey.RightArrow => m.MoveCursor(c => c.Right),
-        ConsoleKey.A or ConsoleKey.LeftArrow => m.MoveCursor(c => c.Left),
-        _ => m
+        ConsoleKey.W or ConsoleKey.UpArrow => menu.MoveCursor(c => c.Up),
+        ConsoleKey.S or ConsoleKey.DownArrow => menu.MoveCursor(c => c.Down),
+        ConsoleKey.D or ConsoleKey.RightArrow => menu.MoveCursor(c => c.Right),
+        ConsoleKey.A or ConsoleKey.LeftArrow => menu.MoveCursor(c => c.Left),
+        _ => menu
     };
 }
