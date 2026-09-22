@@ -10,14 +10,23 @@ public class MenuTests
 
         public IPoppable OnPress(IPoppable state) => state;
     }
-    class TestMenu : IMenu
+    class TestMenu : IMenu2
     {
+        private readonly ICursor cursor;
         private readonly IButton[] buttons;
-        public TestMenu(params TestButton[] buttons) => this.buttons = buttons;
+        public TestMenu(params IButton[] buttons)
+        {
+            this.buttons = buttons;
+            this.cursor = new MenuCursor(buttons.Length);
+        }
 
-        public int ButtonCount => buttons.Length;
+        private TestMenu(IButton[] btns, ICursor cursor) : this(btns) => this.cursor = cursor;
 
-        public IButton GetButton(Index index) => buttons[index];
+        public IContainer Selected => buttons[cursor.Index];
+
+        public IMenu2 MoveCursor(ICursor.Mover mover) => new TestMenu(buttons, mover(cursor));
+
+        public IPoppable? Pop() => null;
 
         public void Render() => Console.WriteLine();
     }
@@ -26,27 +35,14 @@ public class MenuTests
     [InlineData(1)]
     [InlineData(5)]
     [InlineData(0)]
-    public void ButtonCount_ReturnsTotalButtons(int count)
-    {
-        // Arrange
-        var menu = new TestMenu(Enumerable.Repeat(new TestButton(), count).ToArray());
-        // Act
-        int act = menu.ButtonCount;
-        // Assert
-        Assert.Equal(count, act);
-    }
-
-    [Theory]
-    [InlineData(1)]
-    [InlineData(5)]
-    [InlineData(0)]
-    public void GetButton_ReturnsButtonAtIndex(int count)
+    public void Selected_ReturnsSelectedContainer(int count)
     {
         // Arrange
         TestButton exp = new();
-        var menu = new TestMenu([exp, ..Enumerable.Repeat(new TestButton(), count).ToArray()]);
+        var menu = new TestMenu([..Enumerable.Repeat(new TestButton(), count).ToArray(), exp]);
+        for (int i = 0; i < count; i++) menu = menu?.MoveCursor(c => c.Down) as TestMenu;
         // Act
-        IButton act = menu.GetButton(0);
+        IContainer? act = menu?.Selected;
         // Assert
         Assert.Equal(exp, act);
     }
