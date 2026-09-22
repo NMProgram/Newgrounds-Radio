@@ -3,7 +3,7 @@ namespace NGRadio.MenuSystem;
 /// <summary>
 /// Represents the starting Menu for the Newgrounds Radio system.
 /// </summary>
-public class StartMenu : Menu
+public class StartMenu : IMenu
 {
     private static readonly IButton[] buttons = [
         new Button("Option 1", state => state.Pop()),
@@ -14,10 +14,13 @@ public class StartMenu : Menu
     /// <summary>
     /// Creates a new instance of the <see cref="StartMenu"/> class.
     /// </summary>
-    public StartMenu() : base(buttons)
+    public StartMenu()
     {
     }
 
-    public override void Render() 
-        => Array.ForEach(MenuUtils.GetButtonDisplay(Buttons, 0), Console.WriteLine);
+    public int ButtonCount => buttons.Length;
+
+    public IButton GetButton(Index index) => buttons[index];
+
+    public void Render() => Array.ForEach(MenuUtils.GetButtonDisplay(buttons, 0), Console.WriteLine);
 }
