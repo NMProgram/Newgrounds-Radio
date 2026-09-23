@@ -14,14 +14,14 @@ public readonly struct MenuCursor : ICursor
 
     private readonly int max;
 
-    /// <inheritdoc cref="MenuCursor(int, int)"/>
-    public MenuCursor(int max) => this.max = max;
-
     /// <summary>
     /// Creates a new instance of the <see cref="MenuCursor"/> struct.
     /// </summary>
-    /// <param name="index">The start index of the cursor.</param>
     /// <param name="max">The maximum value to wrap the cursor around.</param>
+    public MenuCursor(int max) => this.max = max;
+
+    /// <inheritdoc cref="MenuCursor(int)"/>
+    /// <param name="index">The start index of the cursor.</param>
     public MenuCursor(int index, int max) : this(max) => this.Index = index;
 
     /// <summary>
