@@ -4,44 +4,45 @@ using NGRadio.MenuSystem;
 
 public class MenuTests
 {
-    class TestButton : IMenuButton
+    class TestButton : IButton
     {
         public string Text => "Testing";
 
-        public RenderState OnPress(RenderState state) => state;
+        public IPoppable OnPress(IPoppable state) => state;
     }
-    class TestMenu : Menu
+    class TestMenu : IMenu
     {
-        public TestMenu(params TestButton[] buttons) : base(buttons) { }
+        private readonly ICursor cursor;
+        private readonly IButton[] buttons;
+        public TestMenu(params IButton[] buttons)
+        {
+            this.buttons = buttons;
+            this.cursor = new MenuCursor(buttons.Length);
+        }
 
-        public override void Render(int index) => Console.WriteLine(index);
+        private TestMenu(IButton[] btns, ICursor cursor) : this(btns) => this.cursor = cursor;
+
+        public IContainer Selected => buttons[cursor.Index];
+
+        public IMenu MoveCursor(ICursor.Mover mover) => new TestMenu(buttons, mover(cursor));
+
+        public IPoppable? Pop() => null;
+
+        public void Render() => Console.WriteLine();
     }
 
     [Theory]
     [InlineData(1)]
     [InlineData(5)]
     [InlineData(0)]
-    public void ButtonCount_ReturnsTotalButtons(int count)
-    {
-        // Arrange
-        var menu = new TestMenu(Enumerable.Repeat(new TestButton(), count).ToArray());
-        // Act
-        int act = menu.ButtonCount;
-        // Assert
-        Assert.Equal(count, act);
-    }
-
-    [Theory]
-    [InlineData(1)]
-    [InlineData(5)]
-    [InlineData(0)]
-    public void GetButton_ReturnsButtonAtIndex(int count)
+    public void Selected_ReturnsSelectedContainer(int count)
     {
         // Arrange
         TestButton exp = new();
-        var menu = new TestMenu([exp, ..Enumerable.Repeat(new TestButton(), count).ToArray()]);
+        var menu = new TestMenu([..Enumerable.Repeat(new TestButton(), count).ToArray(), exp]);
+        for (int i = 0; i < count; i++) menu = menu?.MoveCursor(c => c.Down) as TestMenu;
         // Act
-        IMenuButton act = menu[0];
+        IContainer? act = menu?.Selected;
         // Assert
         Assert.Equal(exp, act);
     }

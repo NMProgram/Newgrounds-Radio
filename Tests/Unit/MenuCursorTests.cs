@@ -2,7 +2,7 @@ namespace Tests.Unit;
 
 using NGRadio.MenuSystem;
 
-public class MenuPosTests
+public class MenuCursorTests
 {
     [Theory]
     [InlineData(10, 11)]
@@ -11,11 +11,11 @@ public class MenuPosTests
     public void MoveUp_Positive_ReturnsDecrementedValue(int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor curs = new MenuCursor(index, max);
         // Act
-        MenuPos newPos = pos.MoveUp();
+        ICursor newCursor = curs.Up;
         // Assert
-        Assert.Equal(index - 1, newPos.Value);
+        Assert.Equal(index - 1, newCursor.Index);
     }
 
     [Theory]
@@ -25,11 +25,11 @@ public class MenuPosTests
     public void MoveUp_Negative_ReturnsMaxMinus1(int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor cursor = new(index, max);
         // Act
-        MenuPos newPos = pos.MoveUp();
+        ICursor newCursor = cursor.Up;
         // Assert
-        Assert.Equal(max - 1, newPos.Value);
+        Assert.Equal(max - 1, newCursor.Index);
     }
 
     [Theory]
@@ -39,11 +39,11 @@ public class MenuPosTests
     public void MoveDown_BelowMax_ReturnsIncrementedValue(int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor cursor = new(index, max);
         // Act
-        MenuPos newPos = pos.MoveDown();
+        ICursor newCursor = cursor.Down;
         // Assert
-        Assert.Equal(index + 1, newPos.Value);
+        Assert.Equal(index + 1, newCursor.Index);
     }
 
     [Theory]
@@ -52,11 +52,11 @@ public class MenuPosTests
     public void MoveDown_AboveMax_ReturnsZero(int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor cursor = new(index, max);
         // Act
-        MenuPos newPos = pos.MoveDown();
+        ICursor newCursor = cursor.Down;
         // Assert
-        Assert.Equal(0, newPos.Value);
+        Assert.Equal(0, newCursor.Index);
     }
 
     [Theory]
@@ -66,11 +66,11 @@ public class MenuPosTests
     public void MoveRight_BelowMax_ReturnsIndexPlusPageCountFloored(int exp, int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor cursor = new(index, max);
         // Act
-        MenuPos newPos = pos.MoveRight();
+        ICursor newCursor = cursor.Right;
         // Assert
-        Assert.Equal(exp, newPos.Value);
+        Assert.Equal(exp, newCursor.Index);
     }
 
     [Theory]
@@ -80,11 +80,11 @@ public class MenuPosTests
     public void MoveRight_AboveMax_ReturnsZero(int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor cursor = new(index, max);
         // Act
-        MenuPos newPos = pos.MoveRight();
+        ICursor newCursor = cursor.Right;
         // Assert
-        Assert.Equal(0, newPos.Value);
+        Assert.Equal(0, newCursor.Index);
     }
 
     [Theory]
@@ -94,11 +94,11 @@ public class MenuPosTests
     public void MoveLeft_Positive_ReturnsIndexMinusPageCountFloored(int exp, int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor cursor = new(index, max);
         // Act
-        MenuPos newPos = pos.MoveLeft();
+        ICursor newCursor = cursor.Left;
         // Assert
-        Assert.Equal(exp, newPos.Value);
+        Assert.Equal(exp, newCursor.Index);
     }
 
     [Theory]
@@ -107,10 +107,10 @@ public class MenuPosTests
     public void MoveLeft_Negative_ReturnsMaxMinus1(int index, int max)
     {
         // Arrange
-        MenuPos pos = new(index, max);
+        MenuCursor cursor = new(index, max);
         // Act
-        MenuPos newPos = pos.MoveLeft();
+        ICursor newCursor = cursor.Left;
         // Assert
-        Assert.Equal(max - 1, newPos.Value);
+        Assert.Equal(max - 1, newCursor.Index);
     }
 }
