@@ -24,7 +24,7 @@ public class MenuTests
 
         public IContainer Selected => buttons[cursor.Index];
 
-        public IMenu MoveCursor(ICursor.Mover mover) => new TestMenu(buttons, mover(cursor));
+        public IMoveable Move(ICursor.Mover mover) => new TestMenu(buttons, mover(cursor));
 
         public IPoppable? Pop() => null;
 
@@ -40,7 +40,7 @@ public class MenuTests
         // Arrange
         TestButton exp = new();
         var menu = new TestMenu([..Enumerable.Repeat(new TestButton(), count).ToArray(), exp]);
-        for (int i = 0; i < count; i++) menu = menu?.MoveCursor(c => c.Down) as TestMenu;
+        for (int i = 0; i < count; i++) menu = menu?.Move(c => c.Down) as TestMenu;
         // Act
         IContainer? act = menu?.Selected;
         // Assert
