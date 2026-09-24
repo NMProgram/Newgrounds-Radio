@@ -1,7 +1,6 @@
 namespace NGRadio.MenuSystem;
 
-public interface IMenu : IRenderable, IPoppable
+public interface IMenu : IRenderable, IPoppable, IMoveable
 {
     IContainer Selected { get; }
-    IMenu MoveCursor(ICursor.Mover mover);
 }
