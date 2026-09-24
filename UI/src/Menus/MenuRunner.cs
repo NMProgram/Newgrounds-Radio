@@ -25,10 +25,10 @@ public static class MenuRunner
         ConsoleKey.Enter when menu.Selected is IPressable btn => btn.OnPress(menu),
         ConsoleKey.Backspace => menu.Pop(),
 
-        ConsoleKey.W or ConsoleKey.UpArrow => menu.MoveCursor(c => c.Up),
-        ConsoleKey.S or ConsoleKey.DownArrow => menu.MoveCursor(c => c.Down),
-        ConsoleKey.D or ConsoleKey.RightArrow => menu.MoveCursor(c => c.Right),
-        ConsoleKey.A or ConsoleKey.LeftArrow => menu.MoveCursor(c => c.Left),
+        ConsoleKey.W or ConsoleKey.UpArrow => (IPoppable)menu.Move(c => c.Up),
+        ConsoleKey.S or ConsoleKey.DownArrow => (IPoppable)menu.Move(c => c.Down),
+        ConsoleKey.D or ConsoleKey.RightArrow => (IPoppable)menu.Move(c => c.Right),
+        ConsoleKey.A or ConsoleKey.LeftArrow => (IPoppable)menu.Move(c => c.Left),
         _ => menu
     };
 }
