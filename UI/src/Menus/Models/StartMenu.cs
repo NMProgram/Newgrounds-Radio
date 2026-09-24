@@ -5,7 +5,7 @@ namespace NGRadio.MenuSystem;
 /// </summary>
 public class StartMenu : IMenu
 {
-    private readonly ICursor cursor = new MenuCursor(options.Length);
+    private readonly MenuState state = new MenuState(options.Length);
     private static readonly IContainer[] options = [
         new Button("Option 1", state => state.Pop()),
         new Button("Option 2", state => { Console.WriteLine("Hello!"); Console.ReadLine(); return state; }),
@@ -17,13 +17,13 @@ public class StartMenu : IMenu
     /// </summary>
     public StartMenu() { }
 
-    private StartMenu(ICursor cursor) => this.cursor = cursor;
+    private StartMenu(MenuState state) => this.state = state;
 
-    public IContainer Selected => options[cursor.Index];
+    public IContainer Selected => options[state.Cursor.Index];
 
-    public IMenu MoveCursor(ICursor.Mover mover) => new StartMenu(mover(cursor));
+    public IMenu MoveCursor(ICursor.Mover mover) => new StartMenu(state with { Cursor = mover(state.Cursor) });
 
     public IPoppable? Pop() => null;
 
-    public void Render() => Array.ForEach(MenuUtils.GetOptionDisplay(options, cursor), Console.WriteLine);
+    public void Render() => Array.ForEach(MenuUtils.GetOptionDisplay(options, state.Cursor), Console.WriteLine);
 }
