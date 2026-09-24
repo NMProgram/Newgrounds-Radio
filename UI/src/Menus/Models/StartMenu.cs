@@ -21,7 +21,7 @@ public class StartMenu : IMenu
 
     public IContainer Selected => options[state.Cursor.Index];
 
-    public IMenu MoveCursor(ICursor.Mover mover) => new StartMenu(state with { Cursor = mover(state.Cursor) });
+    public IMoveable Move(ICursor.Mover mover) => new StartMenu(state with { Cursor = mover(state.Cursor) });
 
     public IPoppable? Pop() => null;
 
