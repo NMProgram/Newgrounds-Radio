@@ -31,7 +31,8 @@ jobs:
       - name: Lint project
         run: |
           dotnet format Project -v d --verify-no-changes --report errors.json
-          if [ -f errors.json ]; then cat errors.json
+          contents=$(cat errors.json)
+          echo "$contents"
 
 
   test:
