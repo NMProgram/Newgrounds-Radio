@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  workflow_dispatch:
-
 jobs:
 
   build:
@@ -17,16 +15,22 @@ jobs:
 
       - name: Build project
         run: dotnet build Project
-      - name: Lint project
-        shell: bash
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint projects
         run: |
           dotnet format Project -v m --verify-no-changes 2> errors.txt
+          dotnet format Tests -v m --verify-no-changes 2> errors.txt
+
+      - name: Linting Errors
+        run: |
           contents=`cat errors.txt`
-          if [ -e errors.txt ]; then
-            echo Found Errors:
-            echo ""
-            echo $contents
-          fi
+          echo $contents
+        if: ${{failure()}}
 
   test:
     runs-on: ubuntu-latest
