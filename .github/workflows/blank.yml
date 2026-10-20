@@ -29,11 +29,12 @@ jobs:
       - name: Build project
         run: dotnet build Project
       - name: Lint project
-        run: dotnet format Project -v d --verify-no-changes --report errors.json
+        run: dotnet format Project -v d --verify-no-changes 2> errors.txt
       - name: Print Errors
         run: |
-          contents=`cat errors.json`
-          echo Errors: $contents
+          contents=`cat errors.txt`
+          echo Errors:
+            $contents
         if: ${{failure()}}
       # - uses: actions/upload-artifact@v4
       #   with: 
