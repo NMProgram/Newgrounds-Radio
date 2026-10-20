@@ -9,19 +9,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup SLN file
-        run: dotnet new sln -n ngradio
-      - name: Add dependencies
-        run: |
-          dotnet sln add Project
-          dotnet sln add Tests
+  # setup:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup SLN file
+  #       run: dotnet new sln -n ngradio
+  #     - name: Add dependencies
+  #       run: |
+  #         dotnet sln add Project
+  #         dotnet sln add Tests
 
   build:
-    needs: setup
+    # needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
         if: ${{failure()}}
 
   test:
-    needs: setup
+    # needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
