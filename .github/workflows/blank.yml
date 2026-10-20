@@ -20,6 +20,7 @@ jobs:
         run: dotnet new sln -n ngradio
       - name: Add dependencies
         run: |
+          ls .
           dotnet sln add Project
           dotnet sln add Tests
 
