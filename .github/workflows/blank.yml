@@ -9,19 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  # setup:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Setup SLN file
-  #       run: dotnet new sln -n ngradio
-  #     - name: Add dependencies
-  #       run: |
-  #         dotnet sln add Project
-  #         dotnet sln add Tests
 
   build:
-    # needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,15 +18,18 @@ jobs:
       - name: Build project
         run: dotnet build Project
       - name: Lint project
-        run: dotnet format Project -v d --verify-no-changes 2> errors.txt
-      - name: Display Errors
+        shell: bash
         run: |
+          dotnet format Project -v m --verify-no-changes 2> errors.txt
           contents=`cat errors.txt`
-          echo $contents
-        if: ${{failure()}}
+          if [ -e errors.txt ]; then
+            echo Found Errors:
+            echo ""
+            echo $contents
+            exit 1
+          fi
 
   test:
-    # needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
