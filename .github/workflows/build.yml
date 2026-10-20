@@ -25,8 +25,7 @@ jobs:
 
       - name: Lint projects
         run: |
-          dotnet format Project -v m --verify-no-changes 2> errors.txt
-          dotnet format Tests -v m --verify-no-changes 2> errors.txt
+          dotnet format ngradio.slnx -v m --verify-no-changes 2> errors.txt
 
       - name: Linting Errors
         run: |
