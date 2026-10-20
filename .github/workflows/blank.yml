@@ -30,9 +30,7 @@ jobs:
         run: dotnet build Project
       - name: Lint project
         run: |
-          bash
           formatting.json &> dotnet format Project -v diag --verify-no-changes
-          exit
           cat format.json
 
   test:
