@@ -10,6 +10,9 @@ on:
 
 jobs:
   setup:
+    defaults:
+      run: 
+        working-directory: GITHUB_WORKSPACE
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET 10.0 SDK
