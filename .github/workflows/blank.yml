@@ -2,42 +2,37 @@ name: Validate Changes
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "yaml-tests" ]
   pull_request:
     branches: [ "main" ]
 
-  workflow_dispatch:
-
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup .NET 10.0 SDK
-        uses: actions/setup-dotnet@v6.0.0
-        with:
-          dotnet-version: 10.0
-      - name: Setup SLN file
-        run: dotnet new sln -n ngradio
-      - name: Add dependencies
-        run: |
-          dotnet sln add Project
-          dotnet sln add Tests
 
   build:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Move into Project directory
-        run: cd Project
       - name: Build project
-        run: dotnet build 
-      - name: Lint project
-        run: dotnet format
+        run: dotnet build Project
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint projects
+        run: |
+          dotnet format Project -v m --verify-no-changes 2> errors.txt
+          dotnet format Tests -v m --verify-no-changes 2> errors.txt
+
+      - name: Linting Errors
+        run: |
+          contents=`cat errors.txt`
+          echo $contents
+        if: ${{failure()}}
 
   test:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
