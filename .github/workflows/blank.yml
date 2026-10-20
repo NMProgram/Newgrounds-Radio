@@ -30,8 +30,9 @@ jobs:
         run: dotnet build Project
       - name: Lint project
         run: |
-          dotnet format Project -v n --verify-no-changes 2> errors.txt
-          cat errors.txt
+          dotnet format Project -v d --verify-no-changes --report errors.json
+          if [ -f errors.json ]; then cat errors.json
+
 
   test:
     needs: setup
