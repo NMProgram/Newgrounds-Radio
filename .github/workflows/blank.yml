@@ -20,7 +20,7 @@ jobs:
         run: dotnet new sln -n ngradio
       - name: Add dependencies
         run: |
-          echo dir .
+          dir .
           dotnet sln add $GITHUB_WORKSPACE/../Project
           dotnet sln add $GITHUB_WORKSPACE/../Tests
 
