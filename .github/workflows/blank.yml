@@ -10,9 +10,6 @@ on:
 
 jobs:
   setup:
-    defaults:
-      run: 
-        working-directory: .
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET 10.0 SDK
@@ -23,10 +20,9 @@ jobs:
         run: dotnet new sln -n ngradio
       - name: Add dependencies
         run: |
-          cd $GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
-          dotnet sln add Project
-          dotnet sln add Tests
+          dotnet sln add $GITHUB_WORKSPACE/Project
+          dotnet sln add $GITHUB_WORKSPACE/Tests
 
   build:
     needs: setup
