@@ -29,7 +29,11 @@ jobs:
       - name: Build project
         run: dotnet build Project
       - name: Lint project
-        run: dotnet format Project -v diag --report format.json
+        run: |
+          bash
+          formatting.json &> dotnet format Project -v diag --verify-no-changes
+          exit
+          cat format.json
 
   test:
     needs: setup
