@@ -24,6 +24,7 @@ jobs:
       - name: Add dependencies
         run: |
           cd $GITHUB_WORKSPACE
+          echo $GITHUB_WORKSPACE
           dotnet sln add Project
           dotnet sln add Tests
 
