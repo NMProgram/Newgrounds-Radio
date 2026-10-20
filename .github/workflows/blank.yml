@@ -30,8 +30,8 @@ jobs:
         run: dotnet build Project
       - name: Lint project
         run: |
-          formatting.json &> dotnet format Project -v diag --verify-no-changes
-          cat format.json
+          dotnet format Project -v n --verify-no-changes 2> errors.txt
+          cat errors.txt
 
   test:
     needs: setup
