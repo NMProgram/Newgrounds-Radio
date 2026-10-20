@@ -33,8 +33,7 @@ jobs:
       - name: Print Errors
         run: |
           contents=`cat errors.txt`
-          echo Errors:
-            $contents
+          echo Errors: $contents
         if: ${{failure()}}
       # - uses: actions/upload-artifact@v4
       #   with: 
