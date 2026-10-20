@@ -26,10 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Move into Project directory
-        run: cd Project
       - name: Build project
-        run: dotnet build 
+        run: |
+          ls .
+          dotnet build Project
       - name: Lint project
         run: dotnet format
 
