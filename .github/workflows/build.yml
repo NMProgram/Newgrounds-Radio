@@ -6,7 +6,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -19,6 +18,7 @@ jobs:
         run: dotnet build Tests
 
   lint:
+    environment: testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -28,12 +28,13 @@ jobs:
           dotnet format ngradio.slnx -v m --verify-no-changes 2> errors.txt
 
       - name: Linting Errors
+        if: ${{failure()}}
         run: |
           contents=`cat errors.txt`
           echo $contents
-        if: ${{failure()}}
 
   test:
+    environment: testing
     needs: build
     runs-on: ubuntu-latest
     steps:
