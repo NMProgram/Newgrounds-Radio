@@ -18,23 +18,28 @@ jobs:
         run: dotnet build Tests
 
   lint:
-    environment: testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
 
       - name: Lint projects
         run: |
-          dotnet format ngradio.slnx -v m --verify-no-changes 2> errors.txt
+          dotnet format ngradio.slnx -v d --verify-no-changes --report linting.json
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: lint_errors
+          path: linting.json
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: lint_errors
 
       - name: Linting Errors
         if: ${{failure()}}
-        run: |
-          contents=`cat errors.txt`
-          echo $contents
+        run: cat linting.json
 
   test:
-    environment: testing
     needs: build
     runs-on: ubuntu-latest
     steps:
