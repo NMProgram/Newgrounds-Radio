@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           contents=`cat linting.json`
-          echo $contents | py -m json.tool
+          echo $contents | python3 -m json.tool
 
   test:
     needs: build
