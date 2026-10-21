@@ -32,11 +32,12 @@ jobs:
           path: linting.json
 
       - uses: actions/download-artifact@v6
+        if: ${{failure()}}
         with:
           name: lint_errors
 
       - name: Linting Errors
-        # if: ${{failure()}}
+        if: ${{failure()}}
         run: |
           contents=`cat linting.json`
           echo $contents
