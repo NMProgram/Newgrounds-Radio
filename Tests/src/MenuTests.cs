@@ -5,9 +5,11 @@ using NGRadio;
 public class MenuTests
 {
     [Theory]
+    [InlineData("\r\n1", null, 1)]
+    [InlineData("\r\n1\r\n2", null, 2)]
     [InlineData("Header\r\n1", "Header", 1)]
-    [InlineData("Header\r\n1\r\n2", "Header", 2)]
-    public void Render_HeaderAndOptions_ReturnsFormattedMenu(string exp, string header, int arrLength)
+    [InlineData("Lorem ipsum\r\n1\r\n2", "Lorem ipsum", 2)]
+    public void Render_HeaderAndOptions_ReturnsFormattedMenu(string exp, string? header, int arrLength)
     {
         // Given
         string[] options = Enumerable
@@ -21,32 +23,17 @@ public class MenuTests
         // Then
         Assert.Equal(exp, display);
     }
+
+    [Fact]
+    public async Task Constructor_NoOptions_ThrowsArgumentException()
+    {
+        // Given
+        string header = "Lorem ipsum";
+        // When
+        async Task Empty() => new Menu(header, []);
+        async Task Null() => new Menu(header, null!);
+        // Then
+        await Assert.ThrowsAsync<ArgumentException>(Empty);
+        await Assert.ThrowsAsync<ArgumentNullException>(Null);
+    }
 }
-
-/*
-
-
-
-TDD
-
-Display:
-- Header X
-- Option X
-- Options joined by newline X
-- Repeat of \n X
-- Extract Render method X
-- Repeated newline char const X
-- Use range instead of hard-coded strings X
-- Theory the range X
-- Repeat of tests X
-- Extract to Menu class X
-- Remove static modifier X
-- Handle shared state X
-- Clean up Given set X
-- Move \n const X
-- Add options array to Menu state X
-- Remove newline const X
-- Refactor \n const to \r\n X
-- Encapsulate header field X
-- Encapsulate options field X
-*/
