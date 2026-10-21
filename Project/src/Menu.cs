@@ -19,6 +19,6 @@ public class Menu
     {string.Join("\r\n", options)}
     """;
 
-    private static ArgumentException OptionsEmpty(string paramName) 
+    private static ArgumentException OptionsEmpty(string paramName)
         => new ArgumentException("A menu must have at least one option.", paramName);
 }
