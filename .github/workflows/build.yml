@@ -26,18 +26,20 @@ jobs:
         run: |
           dotnet format ngradio.slnx -v d --verify-no-changes --report linting.json
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: lint_errors
           path: linting.json
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v6
         with:
           name: lint_errors
 
       - name: Linting Errors
-        if: ${{failure()}}
-        run: cat linting.json
+        # if: ${{failure()}}
+        run: |
+          contents=`cat linting.json`
+          echo $contents
 
   test:
     needs: build
