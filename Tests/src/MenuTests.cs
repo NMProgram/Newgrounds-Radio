@@ -1,5 +1,7 @@
 ﻿namespace Tests;
 
+using NGRadio;
+
 public class MenuTests
 {
     [Theory]

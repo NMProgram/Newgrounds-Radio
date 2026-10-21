@@ -1,3 +1,4 @@
+namespace NGRadio;
 public class Menu
 {
     private readonly string header;
