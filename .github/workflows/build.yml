@@ -21,19 +21,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-
       - name: Lint projects
         run: dotnet format ngradio.slnx 
           -v d 
           --verify-no-changes 
           --report linting.json
 
-      - name: Display Linting Errors
+      - name: Display Errors
         if: ${{failure()}}
-        shell: bash
-        run: |
-          contents=`cat linting.json`
-          echo $contents | python3 -m json.tool
+        run: echo `cat linting.json` | python3 -m json.tool
 
   test:
     needs: build
