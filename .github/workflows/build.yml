@@ -31,7 +31,10 @@ jobs:
 
       - name: Display Linting Errors
         if: ${{failure()}}
-        run: echo `cat linting.json` | py -m json.tool
+        shell: bash
+        run: |
+          contents=`cat linting.json`
+          echo $contents | py -m json.tool
 
   test:
     needs: build
