@@ -37,3 +37,7 @@ jobs:
       - name: Run Tests
         run: dotnet test Tests 
           --no-build
+          -d testlogs.txt
+      
+      - name: Test Results
+        run: echo `cat testlogs.txt`
