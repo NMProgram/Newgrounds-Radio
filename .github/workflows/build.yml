@@ -2,6 +2,7 @@ name: Build
 
 on:
   push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -18,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Lint projects
-        run: dotnet format ngradio.slnx 
+      - name: Lint Solution
+        run: dotnet format ngradio.slnx
           -v d 
           --verify-no-changes 
           --report linting.json
@@ -29,11 +30,9 @@ jobs:
         run: echo `cat linting.json` | python3 -m json.tool
 
   test:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       
       - name: Run Tests
-        run: dotnet test Tests 
-          --no-build
+        run: dotnet test ngradio.slnx
