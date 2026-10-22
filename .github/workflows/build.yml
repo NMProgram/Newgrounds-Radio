@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Lint projects
-        run: dotnet format ngradio.slnx 
+      - name: Lint Solution
+        run: dotnet format ngradio.slnx
           -v d 
           --verify-no-changes 
           --report linting.json
