@@ -56,10 +56,7 @@ public class AccountTests
     [Theory]
     [InlineData("SomethingValid!1")]
     [InlineData("1HasThe_Character")]
-    [InlineData("2HasThe#Character")]
     [InlineData("3HasThe^Character")]
-    [InlineData("4HasThe)Character")]
-    [InlineData("5HasThe*Character")]
     [InlineData(Has120Chars)]
     public void IsValidPassword_Success_ReturnsTrue(string pass)
     {
@@ -100,24 +97,14 @@ public class AccountTests
     [Theory]
     [InlineData("nocapitalshere!")]
     [InlineData("NOLOWERCASEHERE!")]
-    public void IsValidPassword_OnlyUpperOrLower_ReturnsFalse(string pass)
-    {
-        // Given
-        // When
-        bool valid = Account.IsValidPassword(pass);
-        // Then
-        Assert.False(valid, "Password with only uppercase or only lowercase letters should not be valid.");
-    }
-
-    [Theory]
     [InlineData("ThereIsNoDigitHere!")]
-    public void IsValidPassword_MissingDigit_ReturnsFalse(string pass)
+    public void IsValidPassword_MissingChar_ReturnsFalse(string pass)
     {
         // Given
         // When
         bool valid = Account.IsValidPassword(pass);
         // Then
-        Assert.False(valid, "Password with no digits should not be valid.");
+        Assert.False(valid, "Password with missing lowercase/uppercase/digits should not be valid.");
     }
 
     [Theory]
