@@ -11,11 +11,12 @@ public class PasswordTests
     [InlineData("1HasThe_Character")]
     [InlineData("3HasThe^Character")]
     [InlineData(Has120Chars)]
-    public void IsValidPassword_Success_ReturnsTrue(string pass)
+    public void Validate_Success_ReturnsTrue(string pass)
     {
         // Given
+        Password pwd = new Password(pass);
         // When
-        bool valid = Password.IsValidPassword(pass);
+        bool valid = pwd.Validate();
         // Then
         Assert.True(valid, $"Password {pass} should be valid.");
     }
@@ -27,22 +28,24 @@ public class PasswordTests
     [InlineData("1234567")]
     [InlineData("1")]
     [InlineData($"{Has120Chars}a")]
-    public void IsValidPassword_OutOfRange_ReturnsFalse(string? pass)
+    public void Validate_OutOfRange_ReturnsFalse(string? pass)
     {
         // Given
+        Password pwd = new Password(pass);
         // When
-        bool valid = Password.IsValidPassword(pass);
+        bool valid = pwd.Validate();
         // Then
         Assert.False(valid, "Password not between 8-120 chars should not be valid.");
     }
 
     [Theory]
     [InlineData("NoSymbolHere")]
-    public void IsValidPassword_MissingSymbol_ReturnsFalse(string pass)
+    public void Validate_MissingSymbol_ReturnsFalse(string pass)
     {
         // Given
+        Password pwd = new Password(pass);
         // When
-        bool valid = Password.IsValidPassword(pass);
+        bool valid = pwd.Validate();
         // Then
         Assert.False(valid, "Password with no symbol should not be valid.");
     }
@@ -51,22 +54,24 @@ public class PasswordTests
     [InlineData("nocapitalshere!")]
     [InlineData("NOLOWERCASEHERE!")]
     [InlineData("ThereIsNoDigitHere!")]
-    public void IsValidPassword_MissingChar_ReturnsFalse(string pass)
+    public void Validate_MissingChar_ReturnsFalse(string pass)
     {
         // Given
+        Password pwd = new Password(pass);
         // When
-        bool valid = Password.IsValidPassword(pass);
+        bool valid = pwd.Validate();
         // Then
         Assert.False(valid, "Password with missing lowercase/uppercase/digits should not be valid.");
     }
 
     [Theory]
     [InlineData("Th1sHasSomeNonAscii┤!")]
-    public void IsValidPassword_NonASCII_ReturnsFalse(string pass)
+    public void Validate_NonASCII_ReturnsFalse(string pass)
     {
         // Given
+        Password pwd = new Password(pass);
         // When
-        bool valid = Password.IsValidPassword(pass);
+        bool valid = pwd.Validate();
         // Then
         Assert.False(valid, "Password with non-ASCII chars should not be valid.");
     }
