@@ -50,4 +50,28 @@ public class AccountTests
         // Then
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
     }
+
+    [Fact]
+    public void IsValidPassword_Success_ReturnsTrue()
+    {
+        // Given
+        string somePass = "SomePassword";
+        // When
+        bool valid = Account.IsValidPassword(somePass);
+        // Then
+        Assert.True(valid, $"Password {somePass} should be valid.");
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void IsValidPassword_NullOrEmptyOrWhitespace_ReturnsFalse(string? pass)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidPassword(pass);
+        // Then
+        Assert.False(valid, $"Empty passwords should not be valid.");
+    }
 }

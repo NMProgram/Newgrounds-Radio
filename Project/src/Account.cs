@@ -7,4 +7,6 @@ public class Account
         && name.All(c => char.IsAsciiLetterOrDigit(c) || c == '-' || c == '_')
         && !name.EndsWith('-')
         && !name.EndsWith('_');
+    
+    public static bool IsValidPassword(string? pass) => !string.IsNullOrWhiteSpace(pass);
 }
