@@ -12,10 +12,11 @@ public class UsernameTests
     [InlineData("SoIsAn_Here")] // has _
     [InlineData("Both_AreAllowed-Too")] // has _ and -
     [InlineData("Dig1tsAreFine2")] // has digit
-    public void IsValidName_Success_ReturnsTrue(string name)
+    public void Validate_Success_ReturnsTrue(string name)
     {
+        Username username = new Username(name);
         // When
-        bool valid = Username.IsValidName(name);
+        bool valid = username.Validate();
         // Then
         Assert.True(valid, $"Name {name} should be valid.");
     }
@@ -27,11 +28,12 @@ public class UsernameTests
     [InlineData("ThisEndsInSymbol!")] // ends on non-letter/digit
     [InlineData("ThisNameCannotEndIn_")] // ends in _
     [InlineData("NeitherCanItEndIn-")] // ends in -
-    public void IsValidName_NonAsciiLetterOrDigit_ReturnsFalse(string name)
+    public void Validate_NonAsciiLetterOrDigit_ReturnsFalse(string name)
     {
         // Given
+        Username username = new Username(name);
         // When
-        bool valid = Username.IsValidName(name);
+        bool valid = username.Validate();
         // Then
         Assert.False(valid, "Name with non-ASCII chars or ending in -/_ should not be valid.");
     }
@@ -42,11 +44,12 @@ public class UsernameTests
     [InlineData("a")] // 1 char
     [InlineData("AB")] // 2 chars
     [InlineData("ThisIs31CharsLongBecauseWhyStop")] // 31 chars
-    public void IsValidName_OutOfRange_ReturnsFalse(string? name)
+    public void Validate_OutOfRange_ReturnsFalse(string? name)
     {
         // Given
+        Username username = new Username(name);
         // When
-        bool valid = Username.IsValidName(name);
+        bool valid = username.Validate();
         // Then
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
     }

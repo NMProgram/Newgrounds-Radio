@@ -2,9 +2,13 @@ namespace NGRadio;
 
 public class Username
 {
-    public static bool IsValidName(string? name) => !string.IsNullOrWhiteSpace(name)
-        && new Range(3, 30).HasValue(name.Length)
-        && name.All(c => char.IsAsciiLetterOrDigit(c) || c == '-' || c == '_')
-        && !name.EndsWith('-')
-        && !name.EndsWith('_');
+    private readonly string? _name;
+
+    public Username(string? name) => _name = name;
+
+    public bool Validate() => !string.IsNullOrWhiteSpace(_name)
+        && new Range(3, 30).HasValue(_name.Length)
+        && _name.All(c => char.IsAsciiLetterOrDigit(c) || c == '-' || c == '_')
+        && !_name.EndsWith('-')
+        && !_name.EndsWith('_');
 }
