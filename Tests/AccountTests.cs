@@ -51,7 +51,7 @@ public class AccountTests
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
     }
 
-    const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKJLDSJDKSJDLKSJKLSDJKLDJKSSJKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSAC@";
+    const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKaLDSJDKSJDLKSJKLSDJKLDJKSSJKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSAC@";
 
     [Theory]
     [InlineData("SomethingValid!")]
@@ -95,5 +95,27 @@ public class AccountTests
         bool valid = Account.IsValidPassword(pass);
         // Then
         Assert.False(valid, "Password with no symbol should not be valid.");
+    }
+
+    [Theory]
+    [InlineData("nocapitalshere!")]
+    public void IsValidPassword_MissingUppercase_ReturnsFalse(string pass)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidPassword(pass);
+        // Then
+        Assert.False(valid, "Password with no uppercase letter should not be valid.");
+    }
+
+    [Theory]
+    [InlineData("NOLOWERCASEHERE!")]
+    public void IsValidPassword_MissingLowercase_ReturnsFalse(string pass)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidPassword(pass);
+        // Then
+        Assert.False(valid, "Password with no lowercase letter should not be valid.");
     }
 }
