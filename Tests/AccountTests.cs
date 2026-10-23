@@ -51,10 +51,15 @@ public class AccountTests
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
     }
 
-    const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKJLDSJDKSJDLKSJKLSDJKLDJKSSJKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSABC";
+    const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKJLDSJDKSJDLKSJKLSDJKLDJKSSJKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSAC@";
 
     [Theory]
-    [InlineData("SomethingValid")]
+    [InlineData("SomethingValid!")]
+    [InlineData("HasThe_Character")]
+    [InlineData("HasThe#Character")]
+    [InlineData("HasThe^Character")]
+    [InlineData("HasThe)Character")]
+    [InlineData("HasThe*Character")]
     [InlineData(Has120Chars)]
     public void IsValidPassword_Success_ReturnsTrue(string pass)
     {
@@ -78,6 +83,17 @@ public class AccountTests
         // When
         bool valid = Account.IsValidPassword(pass);
         // Then
-        Assert.False(valid, $"Password not between 8-120 chars should not be valid.");
+        Assert.False(valid, "Password not between 8-120 chars should not be valid.");
+    }
+
+    [Theory]
+    [InlineData("NoSymbolHere")]
+    public void IsValidPassword_MissingSymbol_ReturnsFalse(string pass)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidPassword(pass);
+        // Then
+        Assert.False(valid, "Password with no symbol should not be valid.");
     }
 }
