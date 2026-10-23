@@ -11,7 +11,7 @@ public class Password
 
     public Password(string? pass) => _pass = pass ?? string.Empty;
 
-    public bool Validate() => !string.IsNullOrWhiteSpace(_pass)
+    public bool Validate() => !string.IsNullOrEmpty(_pass)
         && new Range(8, 120).HasValue(_pass.Length)
         && _pass.All(char.IsAscii)
         && _pass.Any(c => char.IsPunctuation(c) || char.IsSymbol(c))

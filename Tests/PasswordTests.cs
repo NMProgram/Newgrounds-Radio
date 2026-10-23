@@ -7,9 +7,8 @@ public class PasswordTests
     const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKaLDSJDKSJDLKSJKLSDJKLDJKSS6JKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSA@";
 
     [Theory]
-    [InlineData("SomethingValid!1")]
-    [InlineData("1HasThe_Character")]
-    [InlineData("3HasThe^Character")]
+    [InlineData("H@s8Chrs")]
+    [InlineData("SoTh1sOneWillH@ve64CharsWhichIsQuiteALotIfYouThinkAboutItButOkay")]
     [InlineData(Has120Chars)]
     public void Validate_Success_ReturnsTrue(string pass)
     {
@@ -26,7 +25,6 @@ public class PasswordTests
     [InlineData("")]
     [InlineData("a")]
     [InlineData("1234567")]
-    [InlineData("1")]
     [InlineData($"{Has120Chars}a")]
     public void Validate_OutOfRange_ReturnsFalse(string? pass)
     {
@@ -39,7 +37,7 @@ public class PasswordTests
     }
 
     [Theory]
-    [InlineData("NoSymbolHere")]
+    [InlineData("NoSymbolHere2")]
     public void Validate_MissingSymbol_ReturnsFalse(string pass)
     {
         // Given
@@ -51,8 +49,8 @@ public class PasswordTests
     }
 
     [Theory]
-    [InlineData("nocapitalshere!")]
-    [InlineData("NOLOWERCASEHERE!")]
+    [InlineData("nocapitalsh3re!")]
+    [InlineData("NOLOWERCASEH3RE!")]
     [InlineData("ThereIsNoDigitHere!")]
     public void Validate_MissingChar_ReturnsFalse(string pass)
     {
@@ -65,7 +63,7 @@ public class PasswordTests
     }
 
     [Theory]
-    [InlineData("Th1sHasSomeNonAscii┤!")]
+    [InlineData("Th1sHas┤Som3NonAscii┤!")]
     public void Validate_NonASCII_ReturnsFalse(string pass)
     {
         // Given
@@ -77,7 +75,7 @@ public class PasswordTests
     }
 
     [Fact]
-    public void Hash_SameString_ReturnsIdenticalHash()
+    public void Hash_Equality_ReturnsIdenticalHash()
     {
         // Given
         string pass = "Hello!";
@@ -89,5 +87,18 @@ public class PasswordTests
         // Then
         Assert.NotEqual(pass, hash1);
         Assert.Equal(hash1, hash2);
+    }
+
+    [Fact]
+    public void Hash_Inequality_ReturnsNewHash()
+    {
+        // Given
+        Password pwd1 = new Password("Hello!");
+        Password pwd2 = new Password("hElLo!");
+        // When
+        string hash1 = pwd1.GetHash();
+        string hash2 = pwd2.GetHash();
+        // Then
+        Assert.NotEqual(hash1, hash2);
     }
 }
