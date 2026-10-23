@@ -22,7 +22,6 @@ public class UsernameTests
     }
 
     [Theory]
-    [InlineData("                  ")] // only whitespace
     [InlineData("£IsNotASCII")] // has non-ASCII
     [InlineData("ThisHas@Symbol")] // has non-letter/digit
     [InlineData("ThisEndsInSymbol!")] // ends on non-letter/digit

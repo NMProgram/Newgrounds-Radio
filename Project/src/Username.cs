@@ -6,7 +6,7 @@ public class Username
 
     public Username(string? name) => _name = name;
 
-    public bool Validate() => !string.IsNullOrWhiteSpace(_name)
+    public bool Validate() => !string.IsNullOrEmpty(_name)
         && new Range(3, 30).HasValue(_name.Length)
         && _name.All(c => char.IsAsciiLetterOrDigit(c) || c == '-' || c == '_')
         && !_name.EndsWith('-')
