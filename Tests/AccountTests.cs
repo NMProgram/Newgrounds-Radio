@@ -65,4 +65,16 @@ public class AccountTests
         // Then
         Assert.False(valid, "Name with symbols should not be valid.");
     }
+
+    [Theory]
+    [InlineData("ThisNameCannotEndIn_")]
+    [InlineData("NeitherCanItEndIn-")]
+    public void IsValidName_EndsOnDashOrUnderscore_ReturnsFalse(string name)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidName(name);
+        // Then
+        Assert.False(valid, "Name ending on - or _ should not be valid.");
+    }
 }
