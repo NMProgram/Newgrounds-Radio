@@ -8,6 +8,8 @@ public class AccountTests
     [InlineData("Anything")]
     [InlineData("Tri")]
     [InlineData("ReachTheThirtyCharacterMarkMan")]
+    [InlineData("A-IsFine")]
+    [InlineData("SoIsAn_Here")]
     public void IsValidName_Success_ReturnsTrue(string name)
     {
         // When
