@@ -51,15 +51,15 @@ public class AccountTests
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
     }
 
-    const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKaLDSJDKSJDLKSJKLSDJKLDJKSSJKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSAC@";
+    const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKaLDSJDKSJDLKSJKLSDJKLDJKSS6JKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSA@";
 
     [Theory]
-    [InlineData("SomethingValid!")]
-    [InlineData("HasThe_Character")]
-    [InlineData("HasThe#Character")]
-    [InlineData("HasThe^Character")]
-    [InlineData("HasThe)Character")]
-    [InlineData("HasThe*Character")]
+    [InlineData("SomethingValid!1")]
+    [InlineData("1HasThe_Character")]
+    [InlineData("2HasThe#Character")]
+    [InlineData("3HasThe^Character")]
+    [InlineData("4HasThe)Character")]
+    [InlineData("5HasThe*Character")]
     [InlineData(Has120Chars)]
     public void IsValidPassword_Success_ReturnsTrue(string pass)
     {
@@ -99,23 +99,35 @@ public class AccountTests
 
     [Theory]
     [InlineData("nocapitalshere!")]
-    public void IsValidPassword_MissingUppercase_ReturnsFalse(string pass)
+    [InlineData("NOLOWERCASEHERE!")]
+    public void IsValidPassword_OnlyUpperOrLower_ReturnsFalse(string pass)
     {
         // Given
         // When
         bool valid = Account.IsValidPassword(pass);
         // Then
-        Assert.False(valid, "Password with no uppercase letter should not be valid.");
+        Assert.False(valid, "Password with only uppercase or only lowercase letters should not be valid.");
     }
 
     [Theory]
-    [InlineData("NOLOWERCASEHERE!")]
-    public void IsValidPassword_MissingLowercase_ReturnsFalse(string pass)
+    [InlineData("ThereIsNoDigitHere!")]
+    public void IsValidPassword_MissingDigit_ReturnsFalse(string pass)
     {
         // Given
         // When
         bool valid = Account.IsValidPassword(pass);
         // Then
-        Assert.False(valid, "Password with no lowercase letter should not be valid.");
+        Assert.False(valid, "Password with no digits should not be valid.");
+    }
+
+    [Theory]
+    [InlineData("Th1sHasSomeNonAscii┤!")]
+    public void IsValidPassword_NonASCII_ReturnsFalse(string pass)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidPassword(pass);
+        // Then
+        Assert.False(valid, "Password with non-ASCII chars should not be valid.");
     }
 }
