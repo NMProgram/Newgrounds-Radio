@@ -8,5 +8,6 @@ public class Account
         && !name.EndsWith('-')
         && !name.EndsWith('_');
     
-    public static bool IsValidPassword(string? pass) => !string.IsNullOrWhiteSpace(pass);
+    public static bool IsValidPassword(string? pass) => !string.IsNullOrWhiteSpace(pass)
+        && new Range(8, 120).HasValue(pass.Length);
 }

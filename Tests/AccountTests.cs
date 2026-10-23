@@ -21,6 +21,7 @@ public class AccountTests
     }
 
     [Theory]
+    [InlineData("                  ")] // only whitespace
     [InlineData("£IsNotASCII")] // has non-ASCII
     [InlineData("ThisHas@Symbol")] // has non-letter/digit
     [InlineData("ThisEndsInSymbol!")] // ends on non-letter/digit
@@ -38,9 +39,8 @@ public class AccountTests
     [Theory]
     [InlineData(null)] // null
     [InlineData("")] // empty
-    [InlineData(" ")] // whitespace
+    [InlineData("a")] // 1 char
     [InlineData("AB")] // 2 chars
-    [InlineData("A")] // 1 char
     [InlineData("ThisIs31CharsLongBecauseWhyStop")] // 31 chars
     public void IsValidName_OutOfRange_ReturnsFalse(string? name)
     {
@@ -51,27 +51,33 @@ public class AccountTests
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
     }
 
-    [Fact]
-    public void IsValidPassword_Success_ReturnsTrue()
-    {
-        // Given
-        string somePass = "SomePassword";
-        // When
-        bool valid = Account.IsValidPassword(somePass);
-        // Then
-        Assert.True(valid, $"Password {somePass} should be valid.");
-    }
+    const string Has120Chars = "JDSKJDKSDJKLDSJKLDKJLSDJKSKJLDSJDKSJDLKSJKLSDJKLDJKSSJKLDSJKDLSJKLDKJSLDJKSKJDLSJKDSKJLDSJKLDSKJLDSJKLDSKJLDJJSKLDSDSABC";
 
     [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData(" ")]
-    public void IsValidPassword_NullOrEmptyOrWhitespace_ReturnsFalse(string? pass)
+    [InlineData("SomethingValid")]
+    [InlineData(Has120Chars)]
+    public void IsValidPassword_Success_ReturnsTrue(string pass)
     {
         // Given
         // When
         bool valid = Account.IsValidPassword(pass);
         // Then
-        Assert.False(valid, $"Empty passwords should not be valid.");
+        Assert.True(valid, $"Password {pass} should be valid.");
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("a")]
+    [InlineData("1234567")]
+    [InlineData("1")]
+    [InlineData($"{Has120Chars}a")]
+    public void IsValidPassword_OutOfRange_ReturnsFalse(string? pass)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidPassword(pass);
+        // Then
+        Assert.False(valid, $"Password not between 8-120 chars should not be valid.");
     }
 }
