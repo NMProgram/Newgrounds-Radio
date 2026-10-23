@@ -7,8 +7,7 @@ public class AccountTests
     [Theory]
     [InlineData("Anything")]
     [InlineData("Tri")]
-    [InlineData("Still@ASCII?!")]
-    [InlineData("ThisNameIsExactly30CharsLong!!")]
+    [InlineData("ReachTheThirtyCharacterMarkMan")]
     public void IsValidName_Success_ReturnsTrue(string name)
     {
         // When
@@ -52,5 +51,16 @@ public class AccountTests
         bool valid = Account.IsValidName(name);
         // Then
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
+    }
+
+    [Theory]
+    [InlineData("ThisHas@Symbol")]
+    public void IsValidName_HasSymbols_ReturnsFalse(string name)
+    {
+        // Given
+        // When
+        bool valid = Account.IsValidName(name);
+        // Then
+        Assert.False(valid, "Name with symbols should not be valid.");
     }
 }
