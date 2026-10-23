@@ -75,4 +75,19 @@ public class PasswordTests
         // Then
         Assert.False(valid, "Password with non-ASCII chars should not be valid.");
     }
+
+    [Fact]
+    public void Hash_SameString_ReturnsIdenticalHash()
+    {
+        // Given
+        string pass = "Hello!";
+        Password pwd = new Password(pass);
+        Password pwd2 = new Password(pass);
+        // When
+        string hash1 = pwd.GetHash();
+        string hash2 = pwd2.GetHash();
+        // Then
+        Assert.NotEqual(pass, hash1);
+        Assert.Equal(hash1, hash2);
+    }
 }

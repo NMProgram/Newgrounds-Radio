@@ -1,10 +1,15 @@
+using System.Security.Cryptography;
+using System.Text;
+
 namespace NGRadio;
 
 public class Password
 {
-    private readonly string? _pass;
+    private readonly string _pass;
 
-    public Password(string? pass) => _pass = pass;
+    public string GetHash() => Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(_pass)));
+
+    public Password(string? pass) => _pass = pass ?? string.Empty;
 
     public bool Validate() => !string.IsNullOrWhiteSpace(_pass)
         && new Range(8, 120).HasValue(_pass.Length)
