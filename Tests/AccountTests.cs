@@ -5,11 +5,13 @@ using NGRadio;
 public class AccountTests
 {
     [Theory]
-    [InlineData("Anything")]
-    [InlineData("Tri")]
-    [InlineData("ReachTheThirtyCharacterMarkMan")]
-    [InlineData("A-IsFine")]
-    [InlineData("SoIsAn_Here")]
+    [InlineData("Tri")] // 3
+    [InlineData("AnythingThere")] // 12
+    [InlineData("ReachTheThirtyCharacterMarkMan")] // 30
+    [InlineData("A-IsFine")] // has -
+    [InlineData("SoIsAn_Here")] // has _
+    [InlineData("Both_AreAllowed-Too")] // has _ and -
+    [InlineData("Dig1tsAreFine2")] // has digit
     public void IsValidName_Success_ReturnsTrue(string name)
     {
         // When
@@ -19,62 +21,33 @@ public class AccountTests
     }
 
     [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData(" ")]
-    public void IsValidName_NullOrEmptyOrWhitespace_ReturnsFalse(string? name)
+    [InlineData("£IsNotASCII")] // has non-ASCII
+    [InlineData("ThisHas@Symbol")] // has non-letter/digit
+    [InlineData("ThisEndsInSymbol!")] // ends on non-letter/digit
+    [InlineData("ThisNameCannotEndIn_")] // ends in _
+    [InlineData("NeitherCanItEndIn-")] // ends in -
+    public void IsValidName_NonAsciiLetterOrDigit_ReturnsFalse(string name)
     {
-        // Given empty or whitespace
+        // Given
         // When
         bool valid = Account.IsValidName(name);
         // Then
-        Assert.False(valid, "Empty, whitespace-only or non-ASCII names should not be valid.");
+        Assert.False(valid, "Name with non-ASCII chars or ending in -/_ should not be valid.");
     }
 
     [Theory]
-    [InlineData("£IsNotASCII")]
-    public void IsAllAscii_NonAscii_ReturnsFalse(string name)
-    {
-        // Given £
-        // When
-        bool valid = Account.IsValidName(name);
-        // Then
-        Assert.False(valid, "Name with non-ASCII chars should not be valid.");
-    }
-
-    [Theory]
-    [InlineData("AB")]
-    [InlineData("A")]
-    [InlineData("ThisIs31CharsLongBecauseWhyStop")]
-    public void IsValidName_OutOfRange_ReturnsFalse(string name)
+    [InlineData(null)] // null
+    [InlineData("")] // empty
+    [InlineData(" ")] // whitespace
+    [InlineData("AB")] // 2 chars
+    [InlineData("A")] // 1 char
+    [InlineData("ThisIs31CharsLongBecauseWhyStop")] // 31 chars
+    public void IsValidName_OutOfRange_ReturnsFalse(string? name)
     {
         // Given
         // When
         bool valid = Account.IsValidName(name);
         // Then
         Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
-    }
-
-    [Theory]
-    [InlineData("ThisHas@Symbol")]
-    public void IsValidName_HasSymbols_ReturnsFalse(string name)
-    {
-        // Given
-        // When
-        bool valid = Account.IsValidName(name);
-        // Then
-        Assert.False(valid, "Name with symbols should not be valid.");
-    }
-
-    [Theory]
-    [InlineData("ThisNameCannotEndIn_")]
-    [InlineData("NeitherCanItEndIn-")]
-    public void IsValidName_EndsOnDashOrUnderscore_ReturnsFalse(string name)
-    {
-        // Given
-        // When
-        bool valid = Account.IsValidName(name);
-        // Then
-        Assert.False(valid, "Name ending on - or _ should not be valid.");
     }
 }
