@@ -2,8 +2,11 @@ namespace NGRadio;
 
 public abstract class FormField<T>
 {
-    protected T Value { get; }
+    protected readonly IValidator<T> _validator;
 
-    public FormField(T value) => Value = value;
-    public bool Validate(IValidator<T> validator) => validator.Validate(Value);
+    public FormField(IValidator<T> validator) => _validator = validator;
+
+    public abstract T Value { get; }
+
+    public virtual bool Validate() => _validator.Validate(Value);
 }

@@ -2,7 +2,11 @@ namespace NGRadio;
 
 public class Password : FormField<string>
 {
-    public Password(string? pass) : base(pass ?? string.Empty) { }
+    private readonly string _pass;
 
-    public string Hash(IHasher hasher) => hasher.Hash(Value);
+    public override string Value => Base64SHA256Hasher.Default.Hash(_pass);
+
+    public Password(string? pass) : base(PasswordValidator.Default) => _pass = pass ?? string.Empty;
+
+    public override bool Validate() => _validator.Validate(_pass);
 }
