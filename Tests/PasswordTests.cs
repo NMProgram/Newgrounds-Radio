@@ -13,24 +13,22 @@ public class PasswordTests
     {
         // Given
         Password pwd = new Password(pass);
-        PasswordValidator validator = new PasswordValidator();
-        bool exp = validator.Validate(pass);
+        bool exp = PasswordValidator.Default.Validate(pass);
         // When
-        bool valid = pwd.Validate(validator);
+        bool valid = pwd.Validate();
         // Then
         Assert.Equal(exp, valid);
     }
 
     [Theory]
     [InlineData("Lorem ipsum")]
-    public void Hash_Password_UsesBase64SHA256Hasher(string pass)
+    public void Value_HashesPassword_UsesBase64SHA256Hasher(string pass)
     {
         // Given
         Password pwd = new Password(pass);
-        Base64SHA256Hasher hasher = new Base64SHA256Hasher();
-        string expHash = hasher.Hash(pass);
+        string expHash = Base64SHA256Hasher.Default.Hash(pass);
         // When
-        string hash = pwd.Hash(hasher);
+        string hash = pwd.Value;
         // Then
         Assert.Equal(expHash, hash);
     }
