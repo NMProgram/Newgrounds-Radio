@@ -9,7 +9,7 @@ public class Base64SHA256HasherTests
     public void Hash_Equality_ReturnsEqualHash(string value)
     {
         // Given
-        Base64SHA256Hasher hasher = new Base64SHA256Hasher();
+        Base64SHA256Hasher hasher = Base64SHA256Hasher.Default;
         // When
         string hash1 = hasher.Hash(value);
         string hash2 = hasher.Hash(value);
@@ -23,7 +23,7 @@ public class Base64SHA256HasherTests
     public void Hash_Inequality_ReturnsNewHash(string left, string right)
     {
         // Given
-        Base64SHA256Hasher hasher = new Base64SHA256Hasher();
+        Base64SHA256Hasher hasher = Base64SHA256Hasher.Default;
         // When
         string hash1 = hasher.Hash(left);
         string hash2 = hasher.Hash(right);

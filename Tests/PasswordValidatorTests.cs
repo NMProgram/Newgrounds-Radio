@@ -13,7 +13,7 @@ public class PasswordValidatorTests
     public void Validate_Success_ReturnsTrue(string pass)
     {
         // Given
-        PasswordValidator validator = new PasswordValidator();
+        PasswordValidator validator = PasswordValidator.Default;
         // When
         bool valid = validator.Validate(pass);
         // Then
@@ -30,7 +30,7 @@ public class PasswordValidatorTests
     public void Validate_InvalidChars_ReturnsFalse(string pass)
     {
         // Given
-        PasswordValidator validator = new PasswordValidator();
+        PasswordValidator validator = PasswordValidator.Default;
         // When
         bool valid = validator.Validate(pass);
         // Then
@@ -46,7 +46,7 @@ public class PasswordValidatorTests
     public void Validate_OutOfRange_ReturnsFalse(string? pass)
     {
         // Given
-        PasswordValidator validator = new PasswordValidator();
+        PasswordValidator validator = PasswordValidator.Default;
         // When
         bool valid = validator.Validate(pass);
         // Then
