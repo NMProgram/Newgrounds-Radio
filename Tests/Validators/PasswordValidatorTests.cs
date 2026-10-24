@@ -1,4 +1,4 @@
-namespace Tests.Passwords;
+namespace Tests.Validators;
 
 using NGRadio;
 
