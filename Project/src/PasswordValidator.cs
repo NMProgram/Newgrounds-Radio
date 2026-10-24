@@ -9,4 +9,6 @@ public class PasswordValidator : IValidator<string>
         && pass.Any(char.IsUpper)
         && pass.Any(char.IsLower)
         && pass.Any(char.IsDigit);
+
+    public static readonly PasswordValidator Default = new PasswordValidator();
 }
