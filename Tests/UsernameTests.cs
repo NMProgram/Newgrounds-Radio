@@ -4,53 +4,16 @@ using NGRadio;
 
 public class UsernameTests
 {
-    [Theory]
-    [InlineData("Tri")] // 3
-    [InlineData("AnythingThere")] // 12
-    [InlineData("ReachTheThirtyCharacterMarkMan")] // 30
-    [InlineData("A-IsFine")] // has -
-    [InlineData("SoIsAn_Here")] // has _
-    [InlineData("Both_AreAllowed-Too")] // has _ and -
-    [InlineData("Dig1tsAreFine2")] // has digit
-    public void Validate_Success_ReturnsTrue(string name)
-    {
-        Username username = new Username(name);
-        // When
-        bool valid = username.Validate();
-        // Then
-        Assert.True(valid, $"Name {name} should be valid.");
-    }
-
-    [Theory]
-    [InlineData("£IsNotASCII")] // has non-ASCII
-    [InlineData("ThisHas@Symbol")] // has non-letter/digit
-    [InlineData("ThisEndsInSymbol!")] // ends on non-letter/digit
-    [InlineData("ThisNameCannotEndIn_")] // ends in _
-    [InlineData("NeitherCanItEndIn-")] // ends in -
-    [InlineData("                     ")] // only whitespace
-    public void Validate_NonAsciiLetterOrDigit_ReturnsFalse(string name)
+    [Fact]
+    public void Validate_UsesUsernameValidator()
     {
         // Given
+        string name = "Anything";
         Username username = new Username(name);
+        bool exp = new UsernameValidator().Validate(name);
         // When
         bool valid = username.Validate();
         // Then
-        Assert.False(valid, "Name with non-ASCII chars or ending in -/_ should not be valid.");
-    }
-
-    [Theory]
-    [InlineData(null)] // null
-    [InlineData("")] // empty
-    [InlineData("a")] // 1 char
-    [InlineData("AB")] // 2 chars
-    [InlineData("ThisIs31CharsLongBecauseWhyStop")] // 31 chars
-    public void Validate_OutOfRange_ReturnsFalse(string? name)
-    {
-        // Given
-        Username username = new Username(name);
-        // When
-        bool valid = username.Validate();
-        // Then
-        Assert.False(valid, "Name not in range 3-30 chars should be invalid.");
+        Assert.Equal(exp, valid);
     }
 }

@@ -1,14 +1,10 @@
 namespace NGRadio;
 
-public class Username
+public class Username : FormField<string>
 {
-    private readonly string? _name;
+    private readonly string _name;
 
-    public Username(string? name) => _name = name;
+    public override string Value => _name;
 
-    public bool Validate() => !string.IsNullOrEmpty(_name)
-        && new Range(3, 30).HasValue(_name.Length)
-        && _name.All(c => char.IsAsciiLetterOrDigit(c) || c == '-' || c == '_')
-        && !_name.EndsWith('-')
-        && !_name.EndsWith('_');
+    public Username(string? name) : base(new UsernameValidator()) => _name = name ?? string.Empty;
 }
