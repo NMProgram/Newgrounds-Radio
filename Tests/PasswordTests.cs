@@ -37,45 +37,23 @@ public class PasswordTests
     }
 
     [Theory]
-    [InlineData("NoSymbolHere2")]
-    public void Validate_MissingSymbol_ReturnsFalse(string pass)
-    {
-        // Given
-        Password pwd = new Password(pass);
-        // When
-        bool valid = pwd.Validate();
-        // Then
-        Assert.False(valid, "Password with no symbol should not be valid.");
-    }
-
-    [Theory]
     [InlineData("nocapitalsh3re!")]
     [InlineData("NOLOWERCASEH3RE!")]
     [InlineData("ThereIsNoDigitHere!")]
-    public void Validate_MissingChar_ReturnsFalse(string pass)
-    {
-        // Given
-        Password pwd = new Password(pass);
-        // When
-        bool valid = pwd.Validate();
-        // Then
-        Assert.False(valid, "Password with missing lowercase/uppercase/digits should not be valid.");
-    }
-
-    [Theory]
+    [InlineData("NoSymbolHere2")]
     [InlineData("Th1sHas┤Som3NonAscii┤!")]
-    public void Validate_NonASCII_ReturnsFalse(string pass)
+    public void Validate_InvalidChars_ReturnsFalse(string pass)
     {
         // Given
         Password pwd = new Password(pass);
         // When
         bool valid = pwd.Validate();
         // Then
-        Assert.False(valid, "Password with non-ASCII chars should not be valid.");
+        Assert.False(valid, "Password with invalid chars should not be valid.");
     }
 
     [Fact]
-    public void Hash_Equality_ReturnsIdenticalHash()
+    public void Hash_Equality_ReturnsEqualHash()
     {
         // Given
         string pass = "Hello!";
