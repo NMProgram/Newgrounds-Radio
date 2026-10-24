@@ -82,8 +82,8 @@ public class PasswordTests
         Password pwd = new Password(pass);
         Password pwd2 = new Password(pass);
         // When
-        string hash1 = pwd.GetHash();
-        string hash2 = pwd2.GetHash();
+        string hash1 = pwd.Hash();
+        string hash2 = pwd2.Hash();
         // Then
         Assert.NotEqual(pass, hash1);
         Assert.Equal(hash1, hash2);
@@ -96,8 +96,8 @@ public class PasswordTests
         Password pwd1 = new Password("Hello!");
         Password pwd2 = new Password("hElLo!");
         // When
-        string hash1 = pwd1.GetHash();
-        string hash2 = pwd2.GetHash();
+        string hash1 = pwd1.Hash();
+        string hash2 = pwd2.Hash();
         // Then
         Assert.NotEqual(hash1, hash2);
     }

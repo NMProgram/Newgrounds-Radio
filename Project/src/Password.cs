@@ -7,7 +7,7 @@ public class Password
 {
     private readonly string _pass;
 
-    public string GetHash() => Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(_pass)));
+    public string Hash() => Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(_pass)));
 
     public Password(string? pass) => _pass = pass ?? string.Empty;
 
