@@ -27,6 +27,7 @@ public class UsernameTests
     [InlineData("ThisEndsInSymbol!")] // ends on non-letter/digit
     [InlineData("ThisNameCannotEndIn_")] // ends in _
     [InlineData("NeitherCanItEndIn-")] // ends in -
+    [InlineData("                     ")] // only whitespace
     public void Validate_NonAsciiLetterOrDigit_ReturnsFalse(string name)
     {
         // Given
