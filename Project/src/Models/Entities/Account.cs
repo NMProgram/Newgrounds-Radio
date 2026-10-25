@@ -14,6 +14,12 @@ public class Account
         Password = pass;
     }
 
+    /// <summary>
+    /// Gets the ID of the account.
+    /// </summary>
+    /// <value>The GUID associated with the account.</value>
+    public Guid ID { get; }
+
     /// <summary>Gets the name of the account.</summary>
     /// <value>The name of the account.</value>
     public string Name { get; }
@@ -24,9 +30,4 @@ public class Account
     /// <value>The password of the account.</value>
     public string Password { get; }
 
-    /// <summary>
-    /// Gets the ID of the account.
-    /// </summary>
-    /// <value>The GUID associated with the account.</value>
-    public Guid ID { get; }
 }
