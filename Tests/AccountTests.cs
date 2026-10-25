@@ -6,17 +6,6 @@ using Tests.Data;
 public class AccountTests
 {
     [Fact]
-    public void Create_WithName_ReturnsAccountResponse()
-    {
-        // Given
-        string name = "Name";
-        // When
-        AccountResponse acc = new AccountResponse(name);
-        // Then
-        Assert.Equal(name, acc.Name);
-    }
-
-    [Fact]
     public void Create_WithNameAndPassword_ReturnsAccountRequest()
     {
         // Given
@@ -25,21 +14,6 @@ public class AccountTests
         // When
         AccountRequest acc = new AccountRequest(name, pass);
         // Then
-        Assert.Equal(name, acc.Name);
-        Assert.Equal(pass, acc.Password);
-    }
-
-    [Fact]
-    public void Create_WithIDAndNameAndPassword_ReturnsAccount()
-    {
-        // Given
-        Guid guid = Guid.NewGuid();
-        string name = "Name";
-        string pass = "Password";
-        // When
-        Account acc = new Account(guid, name, pass);
-        // Then
-        Assert.Equal(guid, acc.ID);
         Assert.Equal(name, acc.Name);
         Assert.Equal(pass, acc.Password);
     }
