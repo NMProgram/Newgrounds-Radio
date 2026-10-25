@@ -1,7 +1,7 @@
 namespace NGRadio;
 
 /// <summary>
-/// Represents a request used to create a user's account.
+/// Represents a user's account.
 /// </summary>
 public class Account
 {

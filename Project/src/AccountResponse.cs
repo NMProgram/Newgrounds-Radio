@@ -1,7 +1,7 @@
 namespace NGRadio;
 
 /// <summary>
-/// Represents a user's account.
+/// Represents a response containing a user's account.
 /// </summary>
 public class AccountResponse : IComparable<AccountResponse>
 {
