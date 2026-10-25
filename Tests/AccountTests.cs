@@ -17,16 +17,30 @@ public class AccountTests
     }
 
     [Fact]
-    public void Create_WithNameAndPassword_ReturnsAccount()
+    public void Create_WithNameAndPassword_ReturnsAccountRequest()
     {
         // Given
         string name = "Name";
         string pass = "Password";
         // When
-        Account acc = new Account(name, pass);
+        AccountRequest acc = new AccountRequest(name, pass);
         // Then
-        Assert.Equal(name, acc.Name);
         Assert.Equal(pass, acc.Password);
+        Assert.IsType<Account>(acc, exactMatch: false);
+    }
+
+    [Fact]
+    public void Create_WithNameAndPassword_ReturnsAccountEntity()
+    {
+        // Given
+        string name = "Name";
+        string pass = "Password";
+        Guid guid = Guid.NewGuid();
+        // When
+        AccountEntity acc = new AccountEntity(guid, name, pass);
+        // Then
+        Assert.Equal(guid, acc.ID);
+        Assert.IsType<AccountRequest>(acc, exactMatch: false);
     }
 
     [Theory]
