@@ -30,14 +30,14 @@ public class AccountTests
     }
 
     [Fact]
-    public void Create_WithNameAndPassword_ReturnsAccountEntity()
+    public void Create_WithIDAndNameAndPassword_ReturnsAccount()
     {
         // Given
+        Guid guid = Guid.NewGuid();
         string name = "Name";
         string pass = "Password";
-        Guid guid = Guid.NewGuid();
         // When
-        AccountEntity acc = new AccountEntity(guid, name, pass);
+        Account acc = new Account(guid, name, pass);
         // Then
         Assert.Equal(guid, acc.ID);
         Assert.IsType<AccountRequest>(acc, exactMatch: false);
