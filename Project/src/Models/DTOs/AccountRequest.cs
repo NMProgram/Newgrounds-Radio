@@ -1,12 +1,14 @@
 namespace NGRadio.Models.DTOs;
 
+using Models.Entities;
+
 /// <summary>
 /// Represents a request used to create a user's account.
 /// </summary>
 public class AccountRequest
 {
-    /// <inheritdoc cref="AccountResponse(string)"/>
-    /// <param name="pass"><inheritdoc cref="Password" path="/value"/></param>
+    /// <summary>Creates a new instance of the <see cref="AccountRequest"/> class.</summary>
+    /// <inheritdoc cref="Account(Guid, string, string)"/>
     public AccountRequest(string name, string pass)
     {
         Name = name;

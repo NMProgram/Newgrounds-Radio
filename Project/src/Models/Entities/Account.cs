@@ -5,7 +5,11 @@ namespace NGRadio.Models.Entities;
 /// </summary>
 public class Account
 {
-    /// <inheritdoc cref="AccountResponse(string)"/>
+    /// <summary>
+    /// Creates a new instance of the <see cref="Account"/> class.
+    /// </summary>
+    /// <param name="id"><inheritdoc cref="ID" path="/value"/></param>
+    /// <param name="name"><inheritdoc cref="Name" path="/value"/></param>
     /// <param name="pass"><inheritdoc cref="Password" path="/value"/></param>
     public Account(Guid id, string name, string pass)
     {

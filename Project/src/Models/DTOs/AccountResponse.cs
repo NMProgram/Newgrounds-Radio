@@ -1,14 +1,14 @@
 namespace NGRadio.Models.DTOs;
 
+using Models.Entities;
+
 /// <summary>
 /// Represents a response containing a user's account.
 /// </summary>
 public class AccountResponse : IComparable<AccountResponse>
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="AccountResponse"/> class.
-    /// </summary>
-    /// <param name="name"><inheritdoc cref="Name" path="/value"/></param>
+    /// <summary>Creates a new instance of the <see cref="AccountResponse"/> class.</summary>
+    /// <inheritdoc cref="Account(Guid, string, string)"/>
     public AccountResponse(string name)
     {
         Name = name;
