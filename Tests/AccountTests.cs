@@ -6,12 +6,12 @@ using Tests.Data;
 public class AccountTests
 {
     [Fact]
-    public void Create_WithName_ReturnsAccount()
+    public void Create_WithName_ReturnsAccountResponse()
     {
         // Given
         string name = "Name";
         // When
-        Account acc = new Account(name);
+        AccountResponse acc = new AccountResponse(name);
         // Then
         Assert.Equal(name, acc.Name);
     }
@@ -26,7 +26,7 @@ public class AccountTests
         AccountRequest acc = new AccountRequest(name, pass);
         // Then
         Assert.Equal(pass, acc.Password);
-        Assert.IsType<Account>(acc, exactMatch: false);
+        Assert.IsType<AccountResponse>(acc, exactMatch: false);
     }
 
     [Fact]
@@ -51,8 +51,8 @@ public class AccountTests
     public void CompareTo_ReturnsSignedByte(Comparison exp, string left, string? right)
     {
         // Given
-        Account acc1 = new Account(left);
-        Account acc2 = new Account(right!);
+        AccountResponse acc1 = new AccountResponse(left);
+        AccountResponse acc2 = new AccountResponse(right!);
         // When
         int compared = acc1.CompareTo(acc2);
         // Then

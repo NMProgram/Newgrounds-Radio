@@ -3,13 +3,13 @@ namespace NGRadio;
 /// <summary>
 /// Represents a user's account.
 /// </summary>
-public class Account : IComparable<Account>
+public class AccountResponse : IComparable<AccountResponse>
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="Account"/> class.
+    /// Creates a new instance of the <see cref="AccountResponse"/> class.
     /// </summary>
     /// <param name="name"><inheritdoc cref="Name" path="/value"/></param>
-    public Account(string name)
+    public AccountResponse(string name)
     {
         Name = name;
     }
@@ -19,5 +19,5 @@ public class Account : IComparable<Account>
     public string Name { get; }
 
     /// <inheritdoc/>
-    public int CompareTo(Account? other) => Name.CompareTo(other?.Name);
+    public int CompareTo(AccountResponse? other) => Name.CompareTo(other?.Name);
 }

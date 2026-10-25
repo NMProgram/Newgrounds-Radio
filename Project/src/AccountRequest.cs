@@ -3,9 +3,9 @@ namespace NGRadio;
 /// <summary>
 /// Represents a request used to create a user's account.
 /// </summary>
-public class AccountRequest : Account
+public class AccountRequest : AccountResponse
 {
-    /// <inheritdoc cref="Account(string)"/>
+    /// <inheritdoc cref="AccountResponse(string)"/>
     /// <param name="pass"><inheritdoc cref="Password" path="/value"/></param>
     public AccountRequest(string name, string pass)
     : base(name)

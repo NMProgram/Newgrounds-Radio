@@ -5,7 +5,7 @@ namespace NGRadio;
 /// </summary>
 public class AccountEntity : AccountRequest
 {
-    /// <inheritdoc cref="Account(string)"/>
+    /// <inheritdoc cref="AccountResponse(string)"/>
     /// <param name="pass"><inheritdoc cref="Password" path="/value"/></param>
     public AccountEntity(Guid id, string name, string pass)
     : base(name, pass)
