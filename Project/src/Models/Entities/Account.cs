@@ -1,4 +1,4 @@
-namespace NGRadio;
+namespace NGRadio.Models.Entities;
 
 /// <summary>
 /// Represents a user's account.

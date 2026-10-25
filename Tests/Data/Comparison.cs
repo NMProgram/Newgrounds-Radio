@@ -1,4 +1,4 @@
-namespace Tests.Data;
+namespace NGRadio.Tests.Data;
 
 public enum Comparison : sbyte
 {

@@ -1,4 +1,4 @@
-namespace NGRadio;
+namespace NGRadio.Models.DTOs;
 
 /// <summary>
 /// Represents a request used to create a user's account.

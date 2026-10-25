@@ -1,4 +1,4 @@
-namespace NGRadio;
+namespace NGRadio.Models.DTOs;
 
 /// <summary>
 /// Represents a response containing a user's account.

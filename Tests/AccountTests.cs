@@ -1,6 +1,6 @@
-﻿namespace Tests;
+﻿namespace NGRadio.Tests;
 
-using NGRadio;
+using Models.DTOs;
 using Tests.Data;
 
 public class AccountTests
