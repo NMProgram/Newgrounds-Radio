@@ -6,7 +6,7 @@ using Tests.Data;
 public class AccountTests
 {
     [Fact]
-    public void Create_Name_ReturnsAccount()
+    public void Create_WithName_ReturnsAccount()
     {
         // Given
         string name = "Name";
@@ -14,6 +14,19 @@ public class AccountTests
         Account acc = new Account(name);
         // Then
         Assert.Equal(name, acc.Name);
+    }
+
+    [Fact]
+    public void Create_WithNameAndPassword_ReturnsAccount()
+    {
+        // Given
+        string name = "Name";
+        string pass = "Password";
+        // When
+        Account acc = new Account(name, pass);
+        // Then
+        Assert.Equal(name, acc.Name);
+        Assert.Equal(pass, acc.Password);
     }
 
     [Theory]
