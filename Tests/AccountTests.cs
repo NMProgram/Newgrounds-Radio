@@ -25,8 +25,8 @@ public class AccountTests
         // When
         AccountRequest acc = new AccountRequest(name, pass);
         // Then
+        Assert.Equal(name, acc.Name);
         Assert.Equal(pass, acc.Password);
-        Assert.IsType<AccountResponse>(acc, exactMatch: false);
     }
 
     [Fact]
@@ -40,7 +40,8 @@ public class AccountTests
         Account acc = new Account(guid, name, pass);
         // Then
         Assert.Equal(guid, acc.ID);
-        Assert.IsType<AccountRequest>(acc, exactMatch: false);
+        Assert.Equal(name, acc.Name);
+        Assert.Equal(pass, acc.Password);
     }
 
     [Theory]

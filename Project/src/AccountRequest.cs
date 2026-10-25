@@ -3,18 +3,19 @@ namespace NGRadio;
 /// <summary>
 /// Represents a request used to create a user's account.
 /// </summary>
-public class AccountRequest : AccountResponse
+public class AccountRequest
 {
     /// <inheritdoc cref="AccountResponse(string)"/>
     /// <param name="pass"><inheritdoc cref="Password" path="/value"/></param>
     public AccountRequest(string name, string pass)
-    : base(name)
     {
+        Name = name;
         Password = pass;
     }
-    /// <summary>
-    /// Gets the password of the account.
-    /// </summary>
-    /// <value>The password of the account.</value>
+
+    /// <inheritdoc cref="Account.Name"/>
+    public string Name { get; }
+
+    /// <inheritdoc cref="Account.Password"/>
     public string Password { get; }
 }

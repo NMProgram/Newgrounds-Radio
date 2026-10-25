@@ -14,8 +14,7 @@ public class AccountResponse : IComparable<AccountResponse>
         Name = name;
     }
 
-    /// <summary>Gets the name of the account.</summary>
-    /// <value>The name of the account.</value>
+    /// <inheritdoc cref="Account.Name"/>
     public string Name { get; }
 
     /// <inheritdoc/>
